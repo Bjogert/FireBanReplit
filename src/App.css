@@ -1,2 +1,102 @@
-main {
+/* App.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.menu-bar {
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.menu-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.menu-bar li {
+    margin: 0 10px;
+}
+
+.menu-bar a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    margin-top: 60px; /* Adjust to fit the height of the menu bar */
+}
+
+.check-button {
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
+
+.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.red {
+    background-color: red;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .check-button {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .menu-bar a {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+
+    .main {
+        margin-top: 60px; /* Adjust if necessary for smaller screens */
+    }
 }
