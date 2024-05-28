@@ -1,6 +1,6 @@
 // src/services/fireBanService.js
 export const fetchFireBanData = async (latitude, longitude) => {
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const proxyUrl = 'https://fire-ban-checker.herokuapp.com/';
   const targetUrl = `https://api.msb.se/brandrisk/v2/CurrentRisk/sv/${latitude}/${longitude}`;
   const url = proxyUrl + targetUrl;
   console.log(`Fetching data from: ${url}`);
