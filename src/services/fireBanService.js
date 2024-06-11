@@ -1,8 +1,9 @@
 // src/services/fireBanService.js
+
 export const fetchFireBanData = async (latitude, longitude) => {
-  const proxyUrl = 'https://fire-ban-checker.herokuapp.com/';
+  const proxyUrl = 'https://cors-proxy-pi-eight.vercel.app/api/proxy?url=';
   const targetUrl = `https://api.msb.se/brandrisk/v2/CurrentRisk/sv/${latitude}/${longitude}`;
-  const url = proxyUrl + targetUrl;
+  const url = proxyUrl + encodeURIComponent(targetUrl);
   console.log(`Fetching data from: ${url}`);
 
   try {
@@ -63,9 +64,9 @@ export const fetchFireBanData = async (latitude, longitude) => {
 };
 
 export const fetchFireProhibitionData = async (latitude, longitude) => {
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const proxyUrl = 'https://cors-proxy-pi-eight.vercel.app/api/proxy?url=';
   const targetUrl = `https://api.msb.se/brandrisk/v2/FireProhibition/sv/${latitude}/${longitude}`;
-  const url = proxyUrl + targetUrl;
+  const url = proxyUrl + encodeURIComponent(targetUrl);
   console.log(`Fetching data from: ${url}`);
 
   try {
