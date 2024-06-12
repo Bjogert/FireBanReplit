@@ -1,9 +1,10 @@
 // src/services/fireBanService.js
-
-export const fetchFireBanData = async (latitude, longitude) => {
-  const proxyUrl = 'https://cors-proxy-pi-eight.vercel.app/api/proxy?url=';
+export const fetchFireBanData = async () => {
+  const proxyUrl = 'https://cors-proxy-pi-eight.vercel.app/';
+  const latitude = 57.6094; // Gotland latitude
+  const longitude = 18.2948; // Gotland longitude
   const targetUrl = `https://api.msb.se/brandrisk/v2/CurrentRisk/sv/${latitude}/${longitude}`;
-  const url = proxyUrl + encodeURIComponent(targetUrl);
+  const url = proxyUrl + targetUrl;
   console.log(`Fetching data from: ${url}`);
 
   try {
@@ -25,37 +26,7 @@ export const fetchFireBanData = async (latitude, longitude) => {
       return { status: "No fire ban information available for this location." };
     }
 
-    // Extract relevant data from the response
-    const { forecast, periodEndDate } = data;
-    const {
-      date,
-      fwiIndex,
-      fwiMessage,
-      combustibleIndex,
-      combustibleMessage,
-      grassIndex,
-      grassMessage,
-      woodIndex,
-      woodMessage,
-      riskIndex,
-      riskMessage
-    } = forecast;
-
-    return {
-      date,
-      periodEndDate,
-      fwiIndex,
-      fwiMessage,
-      combustibleIndex,
-      combustibleMessage,
-      grassIndex,
-      grassMessage,
-      woodIndex,
-      woodMessage,
-      riskIndex,
-      riskMessage,
-      status: riskMessage || "No specific fire risk message available."
-    };
+    return data;
 
   } catch (error) {
     console.error("Error fetching fire ban data:", error.message);
@@ -63,10 +34,12 @@ export const fetchFireBanData = async (latitude, longitude) => {
   }
 };
 
-export const fetchFireProhibitionData = async (latitude, longitude) => {
-  const proxyUrl = 'https://cors-proxy-pi-eight.vercel.app/api/proxy?url=';
+export const fetchFireProhibitionData = async () => {
+  const proxyUrl = 'https://cors-proxy-pi-eight.vercel.app/';
+  const latitude = 57.6094; // Gotland latitude
+  const longitude = 18.2948; // Gotland longitude
   const targetUrl = `https://api.msb.se/brandrisk/v2/FireProhibition/sv/${latitude}/${longitude}`;
-  const url = proxyUrl + encodeURIComponent(targetUrl);
+  const url = proxyUrl + targetUrl;
   console.log(`Fetching data from: ${url}`);
 
   try {
@@ -88,12 +61,7 @@ export const fetchFireProhibitionData = async (latitude, longitude) => {
       return { status: "No fire prohibition information available for this location." };
     }
 
-    // Extract relevant data from the response
-    const {
-      fireProhibition
-    } = data;
-
-    return fireProhibition;
+    return data;
 
   } catch (error) {
     console.error("Error fetching fire prohibition data:", error.message);

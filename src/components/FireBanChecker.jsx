@@ -4,7 +4,7 @@ import { fetchFireBanData, fetchFireProhibitionData } from '../services/fireBanS
 import '../App.css';
 
 const FireBanChecker = () => {
-  const [buttonText, setButtonText] = useState("Får jag elda nu?");
+  const [buttonText, setButtonText] = useState("Check Status");
   const [buttonClass, setButtonClass] = useState("");
   const [error, setError] = useState(null);
   const [fireHazard, setFireHazard] = useState(null);
@@ -17,51 +17,24 @@ const FireBanChecker = () => {
     setFireHazard(null);
     setFireBan(null);
 
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-        try {
-          const fireBanData = await fetchFireBanData(latitude.toFixed(4), longitude.toFixed(4));
-          const fireProhibitionData = await fetchFireProhibitionData(latitude.toFixed(4), longitude.toFixed(4));
+    try {
+      console.log("Fetching fire ban data...");
+      const fireBanData = await fetchFireBanData();
+      console.log("Fire ban data received:", fireBanData);
 
-          if (fireProhibitionData.statusCode === 3) {
-            setButtonText("Fire Ban in Place");
-            setButtonClass("red");
-            setFireBan("Fire ban in your location.");
-          } else {
-            setFireBan("No fire ban in your location.");
-          }
+      console.log("Fetching fire prohibition data...");
+      const fireProhibitionData = await fetchFireProhibitionData();
+      console.log("Fire prohibition data received:", fireProhibitionData);
 
-          if (fireBanData.riskIndex >= 2) {
-            setButtonText("Fire Risk Present");
-            setButtonClass("yellow");
-            setFireHazard({
-              grass: fireBanData.grassMessage,
-              wood: fireBanData.woodMessage,
-              combustible: fireBanData.combustibleMessage,
-              general: fireBanData.riskMessage
-            });
-          } else {
-            setButtonText("Safe to Light a Fire");
-            setButtonClass("green");
-            setFireHazard({ general: "No fire hazard" });
-          }
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          setError('Failed to fetch data');
-          setButtonText("Får jag elda nu?");
-        } finally {
-          setButtonClass("");
-        }
-      }, (error) => {
-        console.error('Error getting location:', error);
-        setError('Failed to get location. Please try again.');
-        setButtonText("Får jag elda nu?");
-        setButtonClass("");
-      });
-    } else {
-      setError('Geolocation is not supported by this browser.');
-      setButtonText("Får jag elda nu?");
+      setFireHazard(fireBanData);
+      setFireBan(fireProhibitionData);
+
+      setButtonText("Check Status");
+      setButtonClass("");
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('Failed to fetch data');
+      setButtonText("Check Status");
       setButtonClass("");
     }
   };
@@ -88,23 +61,19 @@ const FireBanChecker = () => {
         {fireHazard && (
           <div className="result">
             <div><strong>Fire Hazard:</strong></div>
-            {fireHazard.general !== "No fire hazard" && (
-              <ul>
-                {fireHazard.grass && <li>Grass: {fireHazard.grass}</li>}
-                {fireHazard.wood && <li>Wood: {fireHazard.wood}</li>}
-                {fireHazard.combustible && <li>Combustible: {fireHazard.combustible}</li>}
-                <li>General: {fireHazard.general}</li>
-              </ul>
-            )}
-            {fireHazard.general === "No fire hazard" && (
-              <div>No fire hazard</div>
-            )}
+            <ul>
+              <li>FWI Message: {fireHazard.forecast?.fwiMessage}</li>
+              <li>Combustible Message: {fireHazard.forecast?.combustibleMessage}</li>
+              <li>Grass Message: {fireHazard.forecast?.grassMessage}</li>
+              <li>Wood Message: {fireHazard.forecast?.woodMessage}</li>
+              <li>General Risk Message: {fireHazard.forecast?.riskMessage}</li>
+            </ul>
           </div>
         )}
         {fireBan && (
           <div className="result">
             <div><strong>Fire Ban:</strong></div>
-            <div>{fireBan}</div>
+            <div>{fireBan.fireProhibition ? fireBan.fireProhibition : "No fire ban in your location."}</div>
           </div>
         )}
       </main>
