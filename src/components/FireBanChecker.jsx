@@ -1,5 +1,4 @@
-// src/components/FireBanChecker.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchFireBanData, fetchFireProhibitionData } from '../services/fireBanService';
 import '../App.css';
 
@@ -9,6 +8,23 @@ const FireBanChecker = () => {
   const [error, setError] = useState(null);
   const [fireHazard, setFireHazard] = useState(null);
   const [fireBan, setFireBan] = useState(null);
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        setLocation({
+          latitude: position.coords.latitude.toFixed(2),
+          longitude: position.coords.longitude.toFixed(2),
+        });
+      }, error => {
+        console.error("Error fetching geolocation: ", error.message);
+        setError('Failed to fetch geolocation');
+      });
+    } else {
+      setError('Geolocation is not supported by this browser.');
+    }
+  }, []);
 
   const handleCheckStatus = async () => {
     setButtonText("Checking...");
@@ -17,13 +33,20 @@ const FireBanChecker = () => {
     setFireHazard(null);
     setFireBan(null);
 
+    if (!location.latitude || !location.longitude) {
+      setError('Geolocation is not available.');
+      setButtonText("Check Status");
+      setButtonClass("");
+      return;
+    }
+
     try {
       console.log("Fetching fire ban data...");
-      const fireBanData = await fetchFireBanData();
+      const fireBanData = await fetchFireBanData(location.latitude, location.longitude);
       console.log("Fire ban data received:", fireBanData);
 
       console.log("Fetching fire prohibition data...");
-      const fireProhibitionData = await fetchFireProhibitionData();
+      const fireProhibitionData = await fetchFireProhibitionData(location.latitude, location.longitude);
       console.log("Fire prohibition data received:", fireProhibitionData);
 
       setFireHazard(fireBanData);
@@ -62,18 +85,18 @@ const FireBanChecker = () => {
           <div className="result">
             <div><strong>Fire Hazard:</strong></div>
             <ul>
-              <li>FWI Message: {fireHazard.forecast?.fwiMessage}</li>
-              <li>Combustible Message: {fireHazard.forecast?.combustibleMessage}</li>
-              <li>Grass Message: {fireHazard.forecast?.grassMessage}</li>
-              <li>Wood Message: {fireHazard.forecast?.woodMessage}</li>
-              <li>General Risk Message: {fireHazard.forecast?.riskMessage}</li>
+              <li>FWI Message: {fireHazard.fwiMessage}</li>
+              <li>Combustible Message: {fireHazard.combustibleMessage}</li>
+              <li>Grass Message: {fireHazard.grassMessage}</li>
+              <li>Wood Message: {fireHazard.woodMessage}</li>
+              <li>General Risk Message: {fireHazard.riskMessage}</li>
             </ul>
           </div>
         )}
         {fireBan && (
           <div className="result">
             <div><strong>Fire Ban:</strong></div>
-            <div>{fireBan.fireProhibition ? fireBan.fireProhibition : "No fire ban in your location."}</div>
+            <div>{fireBan.statusMessage}</div>
           </div>
         )}
       </main>
