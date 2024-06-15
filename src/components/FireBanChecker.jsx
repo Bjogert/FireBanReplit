@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// src/components/FireBanChecker.jsx
+import React, { useState } from 'react';
 import { fetchFireBanData, fetchFireProhibitionData } from '../services/fireBanService';
 import '../App.css';
 
@@ -8,23 +9,7 @@ const FireBanChecker = () => {
   const [error, setError] = useState(null);
   const [fireHazard, setFireHazard] = useState(null);
   const [fireBan, setFireBan] = useState(null);
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        setLocation({
-          latitude: position.coords.latitude.toFixed(2),
-          longitude: position.coords.longitude.toFixed(2),
-        });
-      }, error => {
-        console.error("Error fetching geolocation: ", error.message);
-        setError('Failed to fetch geolocation');
-      });
-    } else {
-      setError('Geolocation is not supported by this browser.');
-    }
-  }, []);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const handleCheckStatus = async () => {
     setButtonText("Checking...");
@@ -33,20 +18,18 @@ const FireBanChecker = () => {
     setFireHazard(null);
     setFireBan(null);
 
-    if (!location.latitude || !location.longitude) {
-      setError('Geolocation is not available.');
-      setButtonText("Check Status");
-      setButtonClass("");
-      return;
-    }
-
     try {
+      const { coords } = await new Promise((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      );
+      const { latitude, longitude } = coords;
+
       console.log("Fetching fire ban data...");
-      const fireBanData = await fetchFireBanData(location.latitude, location.longitude);
+      const fireBanData = await fetchFireBanData(latitude, longitude);
       console.log("Fire ban data received:", fireBanData);
 
       console.log("Fetching fire prohibition data...");
-      const fireProhibitionData = await fetchFireProhibitionData(location.latitude, location.longitude);
+      const fireProhibitionData = await fetchFireProhibitionData(latitude, longitude);
       console.log("Fire prohibition data received:", fireProhibitionData);
 
       setFireHazard(fireBanData);
@@ -60,6 +43,10 @@ const FireBanChecker = () => {
       setButtonText("Check Status");
       setButtonClass("");
     }
+  };
+
+  const toggleIndex = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
   };
 
   return (
@@ -81,22 +68,32 @@ const FireBanChecker = () => {
           {buttonText}
         </button>
         {error && <div className="result error-message">{error}</div>}
-        {fireHazard && (
-          <div className="result">
-            <div><strong>Fire Hazard:</strong></div>
-            <ul>
-              <li>FWI Message: {fireHazard.fwiMessage}</li>
-              <li>Combustible Message: {fireHazard.combustibleMessage}</li>
-              <li>Grass Message: {fireHazard.grassMessage}</li>
-              <li>Wood Message: {fireHazard.woodMessage}</li>
-              <li>General Risk Message: {fireHazard.riskMessage}</li>
-            </ul>
+        {fireBan && (
+          <div className="result-box">
+            <div><strong>Fire Ban:</strong> {fireBan.status || "No fire ban in your location."}</div>
+            <div><strong>Municipality:</strong> {fireBan.county}</div>
           </div>
         )}
-        {fireBan && (
-          <div className="result">
-            <div><strong>Fire Ban:</strong></div>
-            <div>{fireBan.statusMessage}</div>
+        {fireHazard && (
+          <div>
+            {['FWI Message', 'Combustible Message', 'Grass Message', 'Wood Message', 'General Risk Message'].map((message, index) => (
+              <div key={index} className="result-box">
+                <div onClick={() => toggleIndex(index)} className="collapsible-header">
+                  <strong>{message}</strong>
+                </div>
+                {activeIndex === index && (
+                  <div className="collapsible-content">
+                    <ul>
+                      {message === 'FWI Message' && <li>{fireHazard.fwiMessage}</li>}
+                      {message === 'Combustible Message' && <li>{fireHazard.combustibleMessage}</li>}
+                      {message === 'Grass Message' && <li>{fireHazard.grassMessage}</li>}
+                      {message === 'Wood Message' && <li>{fireHazard.woodMessage}</li>}
+                      {message === 'General Risk Message' && <li>{fireHazard.riskMessage}</li>}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         )}
       </main>

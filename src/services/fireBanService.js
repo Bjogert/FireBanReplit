@@ -1,3 +1,4 @@
+// src/services/fireBanService.js
 const proxyUrl = 'https://thingproxy-oxuk.onrender.com/fetch/';
 
 export const fetchFireBanData = async (latitude, longitude) => {
