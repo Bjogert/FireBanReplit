@@ -1,4 +1,3 @@
-// src/components/FireBanChecker.jsx
 import React, { useState } from 'react';
 import { fetchFireBanData, fetchFireProhibitionData } from '../services/fireBanService';
 import '../App.css';
@@ -24,13 +23,8 @@ const FireBanChecker = () => {
       );
       const { latitude, longitude } = coords;
 
-      console.log("Fetching fire ban data...");
       const fireBanData = await fetchFireBanData(latitude, longitude);
-      console.log("Fire ban data received:", fireBanData);
-
-      console.log("Fetching fire prohibition data...");
       const fireProhibitionData = await fetchFireProhibitionData(latitude, longitude);
-      console.log("Fire prohibition data received:", fireProhibitionData);
 
       setFireHazard(fireBanData);
       setFireBan(fireProhibitionData);
@@ -38,7 +32,6 @@ const FireBanChecker = () => {
       setButtonText("Check Status");
       setButtonClass("");
     } catch (error) {
-      console.error('Error fetching data:', error);
       setError('Failed to fetch data');
       setButtonText("Check Status");
       setButtonClass("");
