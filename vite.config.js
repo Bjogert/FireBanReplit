@@ -3,14 +3,17 @@ import react from '@vitejs/plugin-react';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export default defineConfig({
-  base: '/FireBanReplit/',  // Ensure correct base path for GitHub Pages
+  base: './',
   plugins: [
     react(),
-    cssInjectedByJsPlugin()
+    cssInjectedByJsPlugin(),
   ],
   build: {
     rollupOptions: {
-      input: './src/index.jsx'  // Define the main entry point
+      input: {
+        main: './src/index.jsx',
+        css: './src/App.css'
+      }
     }
   },
   server: {
