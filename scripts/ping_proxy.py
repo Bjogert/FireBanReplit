@@ -3,7 +3,7 @@ import time
 
 # Function to ping the proxy server
 def ping_server():
-    url = 'https://your-proxy-server-url'  # Replace with your proxy server URL
+    url = 'https://thingproxy-oxuk.onrender.com/fetch/'  # Replace with your proxy server URL
     try:
         response = requests.get(url)
         if response.status_code == 200:
