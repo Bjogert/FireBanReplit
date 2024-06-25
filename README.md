@@ -1,17 +1,20 @@
-## Running React on Replit
+Getting Started: 
 
-[React](https://reactjs.org/) is a popular JavaScript library for building user interfaces.
+Dependencies:
+Install npm, Vite, and Node.js for your operating system according to the instructions at:
 
-[Vite](https://vitejs.dev/) is a blazing fast frontend build tool that includes features like Hot Module Reloading (HMR), optimized builds, and TypeScript support out of the box.
+https://nodejs.org/en/download/package-manager
 
-Using the two in conjunction is one of the fastest ways to build a web app.
+How to Start the App:
+Run the following command in the FireBanReplit 
 
-### Getting Started
-- Hit run
-- Edit [App.jsx](#src/App.jsx) and watch it live update!
+repository:
+npm run dev
+When you see the following output:
 
-By default, Replit runs the `dev` script, but you can configure it by changing the `run` field in the [configuration file](#.replit). Here are the vite docs for [serving production websites](https://vitejs.dev/guide/build.html)
+VITE v5.3.1 ready in 497 ms
 
-### Typescript
-
-Just rename any file from `.jsx` to `.tsx`. You can also try our [TypeScript Template](https://replit.com/@replit/React-TypeScript)
+➜  Local:   http://localhost:5173/FireBanReplit/
+➜  Network: use --host to expose
+➜  Press 'H' + 'Enter' to show help
+Ctrl-click or copy the local HTTP link to your browser and you will be directed to the FireBanreplit site.
