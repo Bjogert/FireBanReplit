@@ -1,14 +1,14 @@
 Getting Started: 
 
 Dependencies:
+
 Install npm, Vite, and Node.js for your operating system according to the instructions at:
 
 https://nodejs.org/en/download/package-manager
 
 How to Start the App:
-Run the following command in the FireBanReplit 
+Run the following command in the FireBanReplit repository:
 
-repository:
 npm run dev
 When you see the following output:
 
