@@ -19,9 +19,10 @@ body {
 .menu-bar {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Align items to the left */
   background-color: #444;
-  padding: 10px 0;
+  padding: 10px;
+  margin: 0 10px; /* Add margin to ensure it's not right at the edge */
 }
 
 .menu-bar ul {
@@ -30,21 +31,24 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  align-items: flex-start; /* Align items to the left */
 }
 
 .menu-bar li {
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 .menu-bar a {
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .menu-bar a:hover {
+  background-color: #555;
   text-decoration: underline;
 }
 
@@ -86,11 +90,12 @@ body {
 .result-box {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  padding: 16px;
+  padding: 2px; /* Further reduced padding */
   margin: 16px 0;
   border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  transition: max-height 0.3s ease-out, background-color 0.3s;
+  max-height: 300px; /* Set a max height for collapsible content */
+  overflow-y: auto; /* Allow scrolling if content exceeds max height */
 }
 
 .result-box:hover {
@@ -103,8 +108,7 @@ body {
 
 .collapsible-header {
   cursor: pointer;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 2px; /* Further reduced padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -115,16 +119,15 @@ body {
 }
 
 .collapsible-content {
-  padding: 10px;
+  padding: 2px; /* Further reduced padding */
   display: none;
-  transition: max-height 0.3s ease-out;
   max-height: 300px; /* Set a max height for collapsible content */
   overflow-y: auto; /* Allow scrolling if content exceeds max height */
+  font-size: 16px; /* Reverted font size */
 }
 
 .collapsible-content.show {
   display: block;
-  max-height: 300px;
 }
 
 .footer {
@@ -140,17 +143,17 @@ body {
 /* Styles for larger screens */
 @media (min-width: 769px) {
   .menu-bar {
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column; /* Ensure items remain in a column on larger screens */
+    align-items: flex-start; /* Align items to the left */
   }
 
   .menu-bar ul {
-    flex-direction: row;
+    flex-direction: column;
     width: auto;
   }
 
   .menu-bar li {
-    margin: 0 15px;
+    margin: 0 0 10px 0; /* Adjust margin for larger screens */
   }
 
   .main {
