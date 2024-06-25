@@ -11,6 +11,7 @@ const FireBanChecker = () => {
   const [fireBan, setFireBan] = useState(null);
   const [showMoreInfo, setShowMoreInfo] = useState(false);
   const [detailsVisible, setDetailsVisible] = useState(false);
+  const [buttonCollapsed, setButtonCollapsed] = useState(false); // New state for button collapse
 
   const handleCheckStatus = async () => {
     if (buttonText === "Check Status") {
@@ -40,25 +41,30 @@ const FireBanChecker = () => {
         setButtonClass("");
       }
     } else {
-      setDetailsVisible(true); // Show the detailed information box
-      setShowMoreInfo(!showMoreInfo); // Toggle collapse/expand
+      setButtonCollapsed(true); // Trigger the collapse animation
+      setTimeout(() => {
+        setDetailsVisible(true); // Show the detailed information box after collapse
+        setShowMoreInfo(true); // Show the detailed information box expanded
+      }, 500); // Match this duration with the CSS transition time
     }
   };
 
   return (
     <div>
       <main className="main">
-        <button 
-          id="check-button" 
-          className={`check-button ${buttonClass}`} 
-          onClick={handleCheckStatus}
-        >
-          {buttonText}
-        </button>
+        {!buttonCollapsed && (
+          <button 
+            id="check-button" 
+            className={`check-button ${buttonClass} ${buttonCollapsed ? 'collapse' : ''}`} 
+            onClick={handleCheckStatus}
+          >
+            {buttonText}
+          </button>
+        )}
         {error && <div className="result error-message">{error}</div>}
         {fireBan && (
           <div className="result-box">
-            <div><strong>Det råder</strong> {fireBan.status || "Information not available."}</div>
+            <div><strong>Det råder:</strong> {fireBan.status || "Information not available."}</div> {/* Changed label */}
             <div><strong>Kommun:</strong> {fireBan.county || "Information not available."}</div> {/* Display county under the label "Kommun" */}
           </div>
         )}
