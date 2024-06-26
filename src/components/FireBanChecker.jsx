@@ -11,7 +11,7 @@ const FireBanChecker = () => {
   const [fireBan, setFireBan] = useState(null);
   const [showMoreInfo, setShowMoreInfo] = useState(false);
   const [detailsVisible, setDetailsVisible] = useState(false);
-  const [buttonCollapsed, setButtonCollapsed] = useState(false); // New state for button collapse
+  const [buttonCollapsed, setButtonCollapsed] = useState(false);
 
   const handleCheckStatus = async () => {
     if (buttonText === "Check Status") {
@@ -41,11 +41,11 @@ const FireBanChecker = () => {
         setButtonClass("");
       }
     } else {
-      setButtonCollapsed(true); // Trigger the collapse animation
+      setButtonCollapsed(true);
       setTimeout(() => {
-        setDetailsVisible(true); // Show the detailed information box after collapse
-        setShowMoreInfo(true); // Show the detailed information box expanded
-      }, 500); // Match this duration with the CSS transition time
+        setDetailsVisible(true);
+        setShowMoreInfo(true);
+      }, 500);
     }
   };
 
@@ -64,8 +64,8 @@ const FireBanChecker = () => {
         {error && <div className="result error-message">{error}</div>}
         {fireBan && (
           <div className="result-box">
-            <div><strong>Det råder:</strong> {fireBan.status || "Information not available."}</div> {/* Changed label */}
-            <div><strong>Kommun:</strong> {fireBan.county || "Information not available."}</div> {/* Display county under the label "Kommun" */}
+            <div><strong>Det råder:</strong> {fireBan.status || "Information not available."}</div>
+            <div><strong>Kommun:</strong> {fireBan.county || "Information not available."}</div>
           </div>
         )}
         {detailsVisible && (
@@ -88,6 +88,9 @@ const FireBanChecker = () => {
           </div>
         )}
       </main>
+      <div className="image-container">
+        <img src="/FireBanReplit/fire.jpg" alt="Fire image" className="fire-image" />
+      </div>
     </div>
   );
 };
