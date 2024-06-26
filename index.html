@@ -9,21 +9,42 @@
 </head>
 <body>
   <header class="header">
-    <div class="logo">Får du elda nu?</div>
-    <nav class="menu-bar">
-      <ul>
-        <li><a href="#language">Språk</a></li>
-        <li><a href="#allemansratt">Allemansrätt</a></li>
-        <li><a href="#fire-safety">Elda säkert</a></li>
-      </ul>
-    </nav>
+    <div class="header-left">
+      <div class="dropdown">
+        <button class="dropbtn" onclick="toggleDropdown()">More</button>
+        <div class="dropdown-content" id="dropdownMenu">
+          <a href="#">Språk</a>
+          <a href="#">Allemansrätt</a>
+          <a href="#">Elda säkert</a>
+        </div>
+      </div>
+      <div class="title">Får du elda nu?</div>
+    </div>
+    <div class="logo">
+      <!-- Space for logo -->
+    </div>
   </header>
   <div class="main">
-    <div id="root"></div>
+    <div id="root">
+      <button class="check-button">Check Status</button>
+      <div class="image-container">
+        <img src="/FireBanReplit/fire.jpg" alt="Fire image" class="fire-image">
+      </div>
+    </div>
   </div>
   <footer class="footer">
     <p>Plats för reklam.</p>
   </footer>
   <script type="module" src="./src/index.jsx"></script>
+  <script>
+    function toggleDropdown() {
+      var dropdownContent = document.getElementById('dropdownMenu');
+      if (dropdownContent.style.display === 'block') {
+        dropdownContent.style.display = 'none';
+      } else {
+        dropdownContent.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
