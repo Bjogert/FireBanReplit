@@ -19,10 +19,10 @@ body {
 .menu-bar {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
+  align-items: flex-start;
   background-color: #444;
   padding: 10px;
-  margin: 0 10px; /* Add margin to ensure it's not right at the edge */
+  margin: 0 10px;
 }
 
 .menu-bar ul {
@@ -31,7 +31,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
+  align-items: flex-start;
 }
 
 .menu-bar li {
@@ -57,7 +57,7 @@ body {
   margin: auto;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Allow vertical scrolling for the main content */
+  overflow-y: auto;
 }
 
 .check-button {
@@ -98,12 +98,12 @@ body {
 .result-box {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  padding: 2px; /* Further reduced padding */
+  padding: 2px;
   margin: 16px 0;
   border-radius: 8px;
   transition: max-height 0.3s ease-out, background-color 0.3s;
-  max-height: 300px; /* Set a max height for collapsible content */
-  overflow-y: auto; /* Allow scrolling if content exceeds max height */
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .result-box:hover {
@@ -116,7 +116,7 @@ body {
 
 .collapsible-header {
   cursor: pointer;
-  padding: 2px; /* Further reduced padding */
+  padding: 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -127,11 +127,11 @@ body {
 }
 
 .collapsible-content {
-  padding: 2px; /* Further reduced padding */
+  padding: 2px;
   display: none;
-  max-height: 300px; /* Set a max height for collapsible content */
-  overflow-y: auto; /* Allow scrolling if content exceeds max height */
-  font-size: 16px; /* Reverted font size */
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 16px;
 }
 
 .collapsible-content.show {
@@ -151,8 +151,8 @@ body {
 /* Styles for larger screens */
 @media (min-width: 769px) {
   .menu-bar {
-    flex-direction: column; /* Ensure items remain in a column on larger screens */
-    align-items: flex-start; /* Align items to the left */
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .menu-bar ul {
@@ -161,7 +161,7 @@ body {
   }
 
   .menu-bar li {
-    margin: 0 0 10px 0; /* Adjust margin for larger screens */
+    margin: 0 0 10px 0;
   }
 
   .main {
@@ -173,4 +173,18 @@ body {
     text-align: center;
     padding: 20px;
   }
+}
+
+/* Add these styles */
+.App-header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.logo {
+  width: 150px; /* Adjust the width as necessary */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Space between logo and content */
 }
