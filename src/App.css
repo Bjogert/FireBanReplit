@@ -77,6 +77,10 @@ body {
   align-items: center; /* Center align content */
 }
 
+.fire-hazard-scale-container {
+  margin-top: -3px; /* Move the scale up by reducing the margin-top */
+}
+
 .check-button {
   padding: 8px 16px; /* Reduce padding */
   font-size: 18px;
@@ -117,11 +121,12 @@ body {
 .result-box {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  padding: 20px;
-  margin: 20px 0;
+  padding: 5px;
+  margin: 5px 0;
   border-radius: 8px;
   transition: background-color 0.3s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure the result box takes the full width */
 }
 
 .result-box:hover {
@@ -154,6 +159,34 @@ body {
 
 .collapsible-content.show {
   display: block;
+}
+
+.detailed-info-box {
+  font-size: 14px; /* Adjust the font size as needed */
+}
+
+/* Specific styling for the detailed information text box */
+.detailed-info-text-box {
+  font-size: 14px; /* Adjust the font size for the detailed info text */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.detailed-info-text-box:hover {
+  background-color: #f1f1f1;
+}
+
+/* Specific styling for the last updated information */
+.last-updated {
+  font-size: 10px; /* Adjust the font size for the last updated text */
+  color: #666;
+  margin-top: 0px;
 }
 
 .footer {
