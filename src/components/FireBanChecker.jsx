@@ -1,10 +1,10 @@
-// src/components/FireBanChecker.jsx
 import React, { useState } from 'react';
 import { fetchFireBanData, fetchFireProhibitionData } from '../services/fireBanService';
+import FireHazardScale from './FireHazardScale';
 import '../App.css';
 
 const FireBanChecker = () => {
-  const [buttonText, setButtonText] = useState("Check Status");
+  const [buttonText, setButtonText] = useState("Hämta Info");
   const [buttonClass, setButtonClass] = useState("");
   const [error, setError] = useState(null);
   const [fireHazard, setFireHazard] = useState(null);
@@ -14,7 +14,7 @@ const FireBanChecker = () => {
   const [buttonCollapsed, setButtonCollapsed] = useState(false);
 
   const handleCheckStatus = async () => {
-    if (buttonText === "Check Status") {
+    if (buttonText === "Hämta Info") {
       setButtonText("Checking...");
       setButtonClass("loading");
       setError(null);
@@ -33,11 +33,11 @@ const FireBanChecker = () => {
         setFireHazard(fireBanData);
         setFireBan(fireProhibitionData);
 
-        setButtonText("More Information");
+        setButtonText("Mer Information");
         setButtonClass("");
       } catch (error) {
         setError('Failed to fetch data');
-        setButtonText("Check Status");
+        setButtonText("Hämta Info");
         setButtonClass("");
       }
     } else {
@@ -49,9 +49,25 @@ const FireBanChecker = () => {
     }
   };
 
+  const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) return "Information not available.";
+    return dateTimeString.replace("T", " - ");
+  };
+
   return (
     <div>
       <main className="main">
+        {fireHazard && (
+          <div className="fire-hazard-scale-container">
+            <FireHazardScale level={fireHazard.fwiIndex} />
+            <div className="detailed-info-text-box">
+              {fireHazard.fwiMessage || "Information not available."}
+              <div className="last-updated">
+                Uppdaterad: {formatDateTime(fireHazard.periodEndDate)}
+              </div>
+            </div>
+          </div>
+        )}
         {!buttonCollapsed && (
           <button 
             id="check-button" 
@@ -64,12 +80,19 @@ const FireBanChecker = () => {
         {error && <div className="result error-message">{error}</div>}
         {fireBan && (
           <div className="result-box">
-            <div><strong>Det råder:</strong> {fireBan.status || "Information not available."}</div>
-            <div><strong>Kommun:</strong> {fireBan.county || "Information not available."}</div>
+            <div className="status-box">
+              <strong>Det råder:</strong> {fireBan.status || "Information not available."}
+            </div>
+            <div className="municipality-box">
+              <strong>Kommun:</strong> {fireBan.county || "Information not available."}
+            </div>
+            <div className="last-updated">
+              Uppdaterad: {formatDateTime(fireBan.revisionDate)}
+            </div>
           </div>
         )}
         {detailsVisible && (
-          <div className="result-box">
+          <div className="result-box detailed-info-box">
             <div className="collapsible-header" onClick={() => setShowMoreInfo(!showMoreInfo)}>
               <strong>Detailed Information</strong>
               <i className={`fas fa-chevron-${showMoreInfo ? 'up' : 'down'}`}></i>
@@ -77,11 +100,11 @@ const FireBanChecker = () => {
             {showMoreInfo && fireHazard && (
               <div className="collapsible-content show">
                 <ul>
-                  <li><strong>FWI Message:</strong> {fireHazard.fwiMessage || "Information not available."}</li>
-                  <li><strong>Combustible Message:</strong> {fireHazard.combustibleMessage || "Information not available."}</li>
-                  <li><strong>Grass Message:</strong> {fireHazard.grassMessage || "Information not available."}</li>
-                  <li><strong>Wood Message:</strong> {fireHazard.woodMessage || "Information not available."}</li>
-                  <li><strong>General Risk Message:</strong> {fireHazard.riskMessage || "Information not available."}</li>
+                  <li><strong>Aktuellt Läge:</strong> {fireHazard.fwiMessage || "Information not available."}</li>
+                  <li><strong>Brandsäkerhet:</strong> {fireHazard.combustibleMessage || "Information not available."}</li>
+                  <li><strong>Brandrisk Gräs:</strong> {fireHazard.grassMessage || "Information not available."}</li>
+                  <li><strong>I Skog & Mark:</strong> {fireHazard.woodMessage || "Information not available."}</li>
+                  <li><strong>Generellt:</strong> {fireHazard.riskMessage || "Information not available."}</li>
                 </ul>
               </div>
             )}
