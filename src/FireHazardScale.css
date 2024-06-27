@@ -1,16 +1,21 @@
+/* Existing styles provided by the user */
 .fire-hazard-scale-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   margin: 0 auto;
+  position: relative; /* Needed for the pseudo-element */
 }
 
 .fire-hazard-scale {
   display: flex;
   width: 100%;
-  height: 20px; /* Adjust the height as needed */
+  height: 20px; /* Original height */
   margin: 10px 0;
+  border: 1px solid #000000; /* Thin dark border around the entire scale */
+  border-radius: 5px; /* Rounded corners for the entire scale */
+  overflow: visible; /* Make sure overflow is visible to allow the line to stick out */
 }
 
 .scale-segment {
@@ -19,13 +24,26 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.1);
+  position: relative; /* Needed for the pseudo-element */
 }
 
 .scale-segment.active {
-  border: 2px solid #000000 !important; /* Black border around active segment */
+  border: 1px solid #000000 !important; /* Black border around active segment */
   outline: none !important; /* Explicitly remove any outline */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7) !important; /* Make the shadow darker */
   background-color: rgba(255, 0, 0, 0.5);
+}
+
+.scale-segment.active::after {
+  content: '';
+  position: absolute;
+  top: -9px; /* Extend further above the segment */
+  bottom: -6px; /* Shorter extension below the segment */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: calc(100% + 18px); /* Ensure the line extends correctly */
+  background-color: #000000; /* Line color */
+  z-index: 2; /* Ensure it is above other elements */
 }
 
 .scale-segment:not(.active):hover {
@@ -36,4 +54,11 @@
   font-size: 14px;
   color: #333;
   margin-top: 5px;
+}
+
+.detailed-info-text-box {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

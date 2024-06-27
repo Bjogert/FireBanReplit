@@ -49,9 +49,39 @@ const FireBanChecker = () => {
     }
   };
 
-  const formatDateTime = (dateTimeString) => {
+  const formatFireHazardValidityPeriod = (dateTimeString) => {
     if (!dateTimeString) return "Information not available.";
-    return dateTimeString.replace("T", " - ");
+    
+    const date = new Date(dateTimeString);
+    const hours = date.getHours();
+
+    let period;
+    if (hours === 0 || hours === 24) {
+      period = "18:00-24:00";
+    } else if (hours === 6) {
+      period = "00:00-06:00";
+    } else if (hours === 12) {
+      period = "06:00-12:00";
+    } else if (hours === 18) {
+      period = "12:00-18:00";
+    } else {
+      return "Invalid update time";
+    }
+
+    return `Idag, kl. ${period}`;
+  };
+
+  const formatFireBanUpdateDate = (dateTimeString) => {
+    if (!dateTimeString) return "Information not available.";
+
+    const date = new Date(dateTimeString);
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
+
+    return date.toLocaleDateString('sv-SE', options);
   };
 
   return (
@@ -63,7 +93,7 @@ const FireBanChecker = () => {
             <div className="detailed-info-text-box">
               {fireHazard.fwiMessage || "Information not available."}
               <div className="last-updated">
-                Uppdaterad: {formatDateTime(fireHazard.periodEndDate)}
+                Giltig: {formatFireHazardValidityPeriod(fireHazard.periodEndDate)}
               </div>
             </div>
           </div>
@@ -87,7 +117,7 @@ const FireBanChecker = () => {
               <strong>Kommun:</strong> {fireBan.county || "Information not available."}
             </div>
             <div className="last-updated">
-              Uppdaterad: {formatDateTime(fireBan.revisionDate)}
+              Uppdaterad: {formatFireBanUpdateDate(fireBan.revisionDate)}
             </div>
           </div>
         )}
