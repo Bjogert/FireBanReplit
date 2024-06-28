@@ -43,7 +43,7 @@
   width: 4px;
   height: calc(100% + 18px); /* Ensure the line extends correctly */
   background-color: #000000; /* Line color */
-  z-index: 2; /* Ensure it is above other elements */
+  z-index: 0; /* Ensure it is above other elements */
 }
 
 .scale-segment:not(.active):hover {

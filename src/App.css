@@ -1,4 +1,5 @@
-/* Base styles for mobile */
+/* src/App.css */
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -11,12 +12,13 @@ body {
 }
 
 .header {
-  background-color: #333;
+  background-color: #c3cea3;
   color: white;
   padding: 15px;
   display: flex;
   justify-content: space-between; /* Space between elements */
   align-items: center;
+  height: 30px; /* Adjust this value to change the height of the header */
 }
 
 .header-left {
@@ -27,7 +29,9 @@ body {
 .title {
   font-size: 24px;
   font-weight: bold;
-  margin-left: 10px; /* Space between dropdown and title */
+  margin-left: 5px; /* Space between dropdown and title */
+  display: flex;
+  align-items: center;
 }
 
 .dropdown {
@@ -67,6 +71,16 @@ body {
   background-color: #666;
 }
 
+.logo-img {
+  width: 60px; /* Adjust the size as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-left: 40px; /* Space between text and logo */
+  position: relative;
+  display: inline-block;
+  mask-image: radial-gradient(circle, white 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, white 60%, transparent 100%);
+}
+
 .main {
   flex: 1;
   padding: 10px; /* Reduce padding for tighter layout */
@@ -82,10 +96,10 @@ body {
 }
 
 .check-button {
-  padding: 8px 16px; /* Reduce padding */
-  font-size: 18px;
+  padding: 6px 10px; /* Reduce padding */
+  font-size: 12px;
   cursor: pointer;
-  background-color: #28a745;
+  background-color: #41825f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -94,9 +108,20 @@ body {
 }
 
 .check-button:hover {
-  background-color: #218838;
+  background-color: #7fb581;
   transform: scale(1.05);
 }
+
+.fire-image {
+  display: block;
+  margin: 0px auto; /* Reduce margin */
+  max-width: 100%;
+  height: auto;
+  width: 300px; /* Adjust the size as needed */
+  opacity: 0.8; /* Adjust the opacity as needed */
+  filter: saturate(2); /* Adjust the saturation as needed */
+}
+
 
 .fire-image {
   display: block;
@@ -107,7 +132,7 @@ body {
 
 .image-container {
   background-color: #f4f4f4;
-  padding: 10px 0; /* Reduce padding */
+  padding: 0px 0; /* Reduce padding */
 }
 
 .result {

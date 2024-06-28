@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+// src/components/FireBanChecker.jsx
+import React, { useState, useEffect } from 'react';
 import { fetchFireBanData, fetchFireProhibitionData } from '../services/fireBanService';
+import { getCurrentPosition } from '../services/geolocationService';
+import { getCoordinates } from '../services/municipalityService';
 import FireHazardScale from './FireHazardScale';
 import '../App.css';
 
@@ -9,55 +12,74 @@ const FireBanChecker = () => {
   const [error, setError] = useState(null);
   const [fireHazard, setFireHazard] = useState(null);
   const [fireBan, setFireBan] = useState(null);
-  const [showMoreInfo, setShowMoreInfo] = useState(false);
+  const [showMoreInfo, setShowMoreInfo] = useState(false); // Default to false to keep it closed
   const [detailsVisible, setDetailsVisible] = useState(false);
-  const [buttonCollapsed, setButtonCollapsed] = useState(false);
+  const [municipality, setMunicipality] = useState("");
+  const [useGeolocation, setUseGeolocation] = useState(true);
+  const [dataFetched, setDataFetched] = useState(false); // New state to track data fetching
+  const [showMunicipalityForm, setShowMunicipalityForm] = useState(false); // State to track form visibility
 
-  const handleCheckStatus = async () => {
-    if (buttonText === "Hämta Info") {
-      setButtonText("Checking...");
-      setButtonClass("loading");
-      setError(null);
-      setFireHazard(null);
-      setFireBan(null);
-
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const { coords } = await new Promise((resolve, reject) =>
-          navigator.geolocation.getCurrentPosition(resolve, reject)
-        );
+        const { coords } = await getCurrentPosition();
         const { latitude, longitude } = coords;
-
-        const fireBanData = await fetchFireBanData(latitude, longitude);
-        const fireProhibitionData = await fetchFireProhibitionData(latitude, longitude);
-
-        setFireHazard(fireBanData);
-        setFireBan(fireProhibitionData);
-
-        setButtonText("Mer Information");
-        setButtonClass("");
+        fetchDataWithCoordinates(latitude, longitude);
       } catch (error) {
-        setError('Failed to fetch data');
-        setButtonText("Hämta Info");
-        setButtonClass("");
+        console.error("Geolocation error:", error);
+        setUseGeolocation(false);
       }
-    } else {
-      setButtonCollapsed(true);
-      setTimeout(() => {
-        setDetailsVisible(true);
-        setShowMoreInfo(true);
-      }, 500);
+    };
+
+    if (useGeolocation) {
+      fetchData();
+    }
+  }, [useGeolocation]);
+
+  const fetchDataWithCoordinates = async (latitude, longitude) => {
+    setButtonText("Lugn och ro...");
+    setButtonClass("Laddar");
+    setError(null);
+    setFireHazard(null);
+    setFireBan(null);
+
+    try {
+      const fireBanData = await fetchFireBanData(latitude, longitude);
+      const fireProhibitionData = await fetchFireProhibitionData(latitude, longitude);
+      setFireHazard(fireBanData);
+      setFireBan(fireProhibitionData);
+      setButtonText("Hämta Info"); // Reset button text
+      setButtonClass("");
+      setDetailsVisible(true); // Ensure detailed info section is visible
+      setShowMoreInfo(false); // Keep the collapsible box closed by default
+      setDataFetched(true); // Mark data as fetched
+      setShowMunicipalityForm(false); // Hide the form after fetching data
+    } catch (error) {
+      setError('Failed to fetch data');
+      setButtonText("Hämta Info"); // Reset button text
+      setButtonClass("");
+    }
+  };
+
+  const handleManualSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { latitude, longitude } = await getCoordinates(municipality);
+      fetchDataWithCoordinates(latitude, longitude);
+    } catch (error) {
+      setError('Failed to fetch data for the given municipality');
     }
   };
 
   const formatFireHazardValidityPeriod = (dateTimeString) => {
     if (!dateTimeString) return "Information not available.";
-    
+
     const date = new Date(dateTimeString);
     const hours = date.getHours();
 
     let period;
     if (hours === 0 || hours === 24) {
-      period = "18:00-24:00";
+      period = "18:00-00:00";
     } else if (hours === 6) {
       period = "00:00-06:00";
     } else if (hours === 12) {
@@ -84,30 +106,58 @@ const FireBanChecker = () => {
     return date.toLocaleDateString('sv-SE', options);
   };
 
+  useEffect(() => {
+    const changeMunicipalityButton = document.getElementById('change-municipality');
+    if (changeMunicipalityButton) {
+      changeMunicipalityButton.addEventListener('click', () => {
+        setShowMunicipalityForm(true);
+      });
+    }
+  }, []);
+
   return (
     <div>
       <main className="main">
         {fireHazard && (
           <div className="fire-hazard-scale-container">
-            <FireHazardScale level={fireHazard.fwiIndex} />
+            <FireHazardScale level={fireHazard.riskIndex} />
             <div className="detailed-info-text-box">
-              {fireHazard.fwiMessage || "Information not available."}
+              {fireHazard.riskMessage || "Information not available."}
               <div className="last-updated">
-                Giltig: {formatFireHazardValidityPeriod(fireHazard.periodEndDate)}
+                Giltig: {fireHazard.periodEndDate ? formatFireHazardValidityPeriod(fireHazard.periodEndDate) : "Information not available."}
               </div>
             </div>
           </div>
         )}
-        {!buttonCollapsed && (
-          <button 
-            id="check-button" 
-            className={`check-button ${buttonClass} ${buttonCollapsed ? 'collapse' : ''}`} 
-            onClick={handleCheckStatus}
-          >
-            {buttonText}
-          </button>
-        )}
         {error && <div className="result error-message">{error}</div>}
+        {!useGeolocation && !dataFetched && !showMunicipalityForm && ( // Hide form and button if data is fetched
+          <form onSubmit={handleManualSubmit}>
+            <input
+              type="text"
+              value={municipality}
+              onChange={(e) => setMunicipality(e.target.value)}
+              placeholder="Välj Kommun"
+              required
+            />
+            <button type="submit" className="check-button">
+              Hämta Info
+            </button>
+          </form>
+        )}
+        {showMunicipalityForm && ( // Show form if "Byt Kommun" is clicked
+          <form onSubmit={handleManualSubmit}>
+            <input
+              type="text"
+              value={municipality}
+              onChange={(e) => setMunicipality(e.target.value)}
+              placeholder="Välj Kommun"
+              required
+            />
+            <button type="submit" className="check-button">
+              Hämta Info
+            </button>
+          </form>
+        )}
         {fireBan && (
           <div className="result-box">
             <div className="status-box">
@@ -117,17 +167,17 @@ const FireBanChecker = () => {
               <strong>Kommun:</strong> {fireBan.county || "Information not available."}
             </div>
             <div className="last-updated">
-              Uppdaterad: {formatFireBanUpdateDate(fireBan.revisionDate)}
+              Uppdaterad: {fireBan.revisionDate ? formatFireBanUpdateDate(fireBan.revisionDate) : "Information not available."}
             </div>
           </div>
         )}
-        {detailsVisible && (
+        {detailsVisible && fireHazard && (
           <div className="result-box detailed-info-box">
             <div className="collapsible-header" onClick={() => setShowMoreInfo(!showMoreInfo)}>
               <strong>Detailed Information</strong>
               <i className={`fas fa-chevron-${showMoreInfo ? 'up' : 'down'}`}></i>
             </div>
-            {showMoreInfo && fireHazard && (
+            {showMoreInfo && (
               <div className="collapsible-content show">
                 <ul>
                   <li><strong>Aktuellt Läge:</strong> {fireHazard.fwiMessage || "Information not available."}</li>
@@ -142,10 +192,11 @@ const FireBanChecker = () => {
         )}
       </main>
       <div className="image-container">
-        <img src="/FireBanReplit/fire.jpg" alt="Fire image" className="fire-image" />
+        <img src="/FireBanReplit/fire.webp" alt="Fire image" className="fire-image" />
       </div>
     </div>
   );
 };
 
 export default FireBanChecker;
+
