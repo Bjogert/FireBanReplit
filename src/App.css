@@ -1,5 +1,4 @@
 /* src/App.css */
-
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -16,9 +15,9 @@ body {
   color: white;
   padding: 15px;
   display: flex;
-  justify-content: space-between; /* Space between elements */
+  justify-content: space-between;
   align-items: center;
-  height: 30px; /* Adjust this value to change the height of the header */
+  height: 30px;
 }
 
 .header-left {
@@ -29,7 +28,7 @@ body {
 .title {
   font-size: 24px;
   font-weight: bold;
-  margin-left: 5px; /* Space between dropdown and title */
+  margin-left: 15px;
   display: flex;
   align-items: center;
 }
@@ -40,11 +39,11 @@ body {
 }
 
 .dropbtn {
-  background-color: #444;
+  background-color: #44656c;
   color: white;
-  font-size: 14px; /* Smaller font size */
-  padding: 8px 12px; /* Smaller padding */
-  border: none;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid #076900;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -52,19 +51,21 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #555;
+  background-color: #c3cea3;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  width: auto; /* Make the width auto to fit the content */
-  min-width: 0; /* Remove the minimum width */
+  z-index: 2; 
+  width: auto;
+  min-width: 80px;
+  border: 1px solid #4b6e54;
+  border-radius: 5px;
 }
 
 .dropdown-content a {
-  color: white;
-  padding: 6px 8px; /* Smaller padding */
+  color: black;
+  padding: 6px 8px;
   text-decoration: none;
   display: block;
-  font-size: 12px; /* 50% smaller font size */
+  font-size: 12px;
 }
 
 .dropdown-content a:hover {
@@ -72,9 +73,9 @@ body {
 }
 
 .logo-img {
-  width: 60px; /* Adjust the size as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-left: 40px; /* Space between text and logo */
+  width: 60px;
+  height: auto;
+  margin-left: 40px;
   position: relative;
   display: inline-block;
   mask-image: radial-gradient(circle, white 60%, transparent 100%);
@@ -83,28 +84,42 @@ body {
 
 .main {
   flex: 1;
-  padding: 10px; /* Reduce padding for tighter layout */
+  padding: 10px;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align content */
+  align-items: center;
+}
+
+.municipality-box {
+  background-color: #f9f9f9;
+  padding: 0px;
+  margin: 0px 0;
+  border-radius: 0px;
+  width: 50%;
+  cursor: default;
+}
+
+.municipality-box.adjusted {
+  margin-top: 15px;
 }
 
 .fire-hazard-scale-container {
-  margin-top: -3px; /* Move the scale up by reducing the margin-top */
+  margin-top: -20px;
+  transition: margin-top 0.3s ease; /* Smooth transition for margin change */
 }
 
 .check-button {
-  padding: 6px 10px; /* Reduce padding */
+  padding: 3px 7px;
   font-size: 12px;
   cursor: pointer;
   background-color: #41825f;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   transition: background-color 0.3s, transform 0.3s;
-  margin-top: 10px; /* Small margin at the top */
+  margin-top: 0px;
 }
 
 .check-button:hover {
@@ -114,25 +129,17 @@ body {
 
 .fire-image {
   display: block;
-  margin: 0px auto; /* Reduce margin */
+  margin: 0px auto;
   max-width: 100%;
   height: auto;
-  width: 300px; /* Adjust the size as needed */
-  opacity: 0.8; /* Adjust the opacity as needed */
-  filter: saturate(2); /* Adjust the saturation as needed */
-}
-
-
-.fire-image {
-  display: block;
-  margin: 10px auto; /* Reduce margin */
-  max-width: 100%;
-  height: auto;
+  width: 300px;
+  opacity: 0.8;
+  filter: saturate(2);
 }
 
 .image-container {
-  background-color: #f4f4f4;
-  padding: 0px 0; /* Reduce padding */
+  background-color: #f9f9f9;
+  padding: 0px 0;
 }
 
 .result {
@@ -151,11 +158,11 @@ body {
   border-radius: 8px;
   transition: background-color 0.3s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ensure the result box takes the full width */
+  width: 100%;
 }
 
 .result-box:hover {
-  background-color: #f1f1f1;
+  background-color: #f9f9f9;
 }
 
 .result-box h3 {
@@ -168,8 +175,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ddd;
+  background-color: rgba(195, 206, 163, 0.9);
   border-radius: 5px;
+  color: #424242;
+  width: 100%;
+  height: 20px;
+  box-sizing: border-box;
 }
 
 .collapsible-header i {
@@ -180,19 +191,18 @@ body {
   padding: 10px;
   display: none;
   font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.8);
 }
-
 .collapsible-content.show {
   display: block;
 }
 
 .detailed-info-box {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px;
 }
 
-/* Specific styling for the detailed information text box */
 .detailed-info-text-box {
-  font-size: 14px; /* Adjust the font size for the detailed info text */
+  font-size: 14px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   padding: 5px;
@@ -204,12 +214,11 @@ body {
 }
 
 .detailed-info-text-box:hover {
-  background-color: #f1f1f1;
+  background-color: #f9f9f9;
 }
 
-/* Specific styling for the last updated information */
 .last-updated {
-  font-size: 10px; /* Adjust the font size for the last updated text */
+  font-size: 7px;
   color: #666;
   margin-top: 0px;
 }
@@ -227,7 +236,7 @@ body {
 @media (min-width: 769px) {
   .main {
     max-width: 800px;
-    padding: 20px; /* Reduce padding */
+    padding: 20px;
   }
 
   .header, .footer {
@@ -235,3 +244,96 @@ body {
     padding: 20px;
   }
 }
+
+.form-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.form-container form {
+  display: flex;
+  align-items: center;
+}
+
+.form-container input {
+  margin-right: 10px;
+}
+
+  .suggestions {
+    border: 1px solid #ddd;
+    max-height: 100px;
+    overflow-y: auto;
+    background-color: #fff;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 45%;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .suggestions li {
+    padding: 3px;
+    cursor: pointer;
+  }
+
+  .suggestions li.suggestion-active {
+    background-color: #f4f4f4;
+  }
+
+  .autocomplete-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .autocomplete-input {
+  width: 50%; 
+  padding: 4px; 
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px; 
+  height: 40px; 
+  }
+  .autocomplete-suggestions {
+    position: absolute;
+    border: 1px solid #ddd;
+    background: white;
+    z-index: 1;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+  }
+
+  .autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .autocomplete-suggestion-active {
+    background-color: #f4f4f4;
+  }
+
+  .autocomplete-suggestions::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .autocomplete-suggestions::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  .autocomplete-suggestions::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+  }
+
+  .autocomplete-suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }

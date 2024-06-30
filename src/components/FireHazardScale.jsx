@@ -3,13 +3,13 @@ import '../FireHazardScale.css';
 
 const FireHazardScale = ({ level }) => {
   const levels = [
-    { label: 'Ingen data', color: 'grey' },
-    { label: 'Mycket liten risk', color: 'blue' },
-    { label: 'Liten risk', color: 'green' },
-    { label: 'Måttlig risk', color: 'yellow' },
-    { label: 'Stor risk', color: 'orange' },
-    { label: 'Mycket stor risk', color: 'red' },
-    { label: 'Extremt stor risk', color: 'darkred' },
+    { label: 'Ingen data', className: 'grey' },
+    { label: 'Mycket liten risk', className: 'blue' },
+    { label: 'Liten risk', className: 'green' },
+    { label: 'Måttlig risk', className: 'yellow' },
+    { label: 'Stor risk', className: 'orange' },
+    { label: 'Mycket stor risk', className: 'red' },
+    { label: 'Extremt stor risk', className: 'darkred' },
   ];
 
   return (
@@ -18,8 +18,7 @@ const FireHazardScale = ({ level }) => {
         {levels.map((lvl, index) => (
           <div
             key={index}
-            className={`scale-segment ${level === index ? 'active' : ''}`}
-            style={{ backgroundColor: lvl.color }}
+            className={`scale-segment ${level === index ? 'active' : ''} ${lvl.className}`}
           >
           </div>
         ))}

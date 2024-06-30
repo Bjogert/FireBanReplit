@@ -1,4 +1,3 @@
-/* Existing styles provided by the user */
 .fire-hazard-scale-container {
   display: flex;
   flex-direction: column;
@@ -23,14 +22,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.1);
   position: relative; /* Needed for the pseudo-element */
+}
+
+/* Original vivid colors */
+.scale-segment.grey {
+  background-color: grey;
+}
+
+.scale-segment.blue {
+  background-color: cyan;
+}
+
+.scale-segment.green {
+  background-color: lime;
+}
+
+.scale-segment.yellow {
+  background-color: yellow;
+}
+
+.scale-segment.orange {
+  background-color: orange;
+}
+
+.scale-segment.red {
+  background-color: red;
+}
+
+.scale-segment.darkred {
+  background-color: darkred;
 }
 
 .scale-segment.active {
   border: 1px solid #000000 !important; /* Black border around active segment */
   outline: none !important; /* Explicitly remove any outline */
-  background-color: rgba(255, 0, 0, 0.5);
 }
 
 .scale-segment.active::after {

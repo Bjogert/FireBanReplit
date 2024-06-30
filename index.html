@@ -43,6 +43,11 @@
       }
     }
 
+    document.getElementById('change-municipality').addEventListener('click', function() {
+      var scaleContainer = document.querySelector('.fire-hazard-scale-container');
+      scaleContainer.style.marginTop = '15px';
+    });
+
     // Close the dropdown if the user clicks outside of it
     window.onclick = function(event) {
       if (!event.target.matches('.dropbtn')) {
@@ -57,4 +62,4 @@
     };
   </script>
 </body>
-</html>
+</html>:
