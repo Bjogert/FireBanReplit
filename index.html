@@ -1,0 +1,65 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eldkoll</title>
+  <link rel="stylesheet" href="./src/App.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <div class="dropdown">
+        <button class="dropbtn" onclick="toggleDropdown()">Mer</button>
+        <div class="dropdown-content" id="dropdownMenu">
+          <a href="#">Språk</a>
+          <a href="#">Allemansrätt</a>
+          <a href="#">Elda säkert</a>
+          <a href="#" id="change-municipality">Byt Kommun</a>
+        </div>
+      </div>
+      <div class="title">
+        Får du elda nu?
+        <img src="/Logo.webp" alt="Logo" class="logo-img">
+      </div>
+    </div>
+  </header>
+  <div class="main">
+    <div id="root"></div>
+  </div>
+  <footer class="footer">
+    <p>Plats för reklam.</p>
+  </footer>
+  <script type="module" src="./src/index.jsx"></script>
+  <script>
+    function toggleDropdown() {
+      var dropdownContent = document.getElementById('dropdownMenu');
+      if (dropdownContent.style.display === 'block') {
+        dropdownContent.style.display = 'none';
+      } else {
+        dropdownContent.style.display = 'block';
+      }
+    }
+
+    document.getElementById('change-municipality').addEventListener('click', function() {
+      var scaleContainer = document.querySelector('.fire-hazard-scale-container');
+      scaleContainer.style.marginTop = '15px';
+    });
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.style.display === 'block') {
+            openDropdown.style.display = 'none';
+          }
+        }
+      }
+    };
+  </script>
+</body>
+</html>:
