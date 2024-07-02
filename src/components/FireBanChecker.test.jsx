@@ -1,39 +1,82 @@
 // src/components/FireBanChecker.test.jsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import FireBanChecker from './FireBanChecker';
 
-describe('FireBanChecker', () => {
-  test('renders the check status button', () => {
-    render(<FireBanChecker />);
-    const checkButton = screen.getByText(/check status/i);
-    expect(checkButton).toBeInTheDocument();
+// Mock the services used in FireBanChecker
+jest.mock('../services/fireBanService', () => ({
+  fetchFireBanData: jest.fn(),
+  fetchFireProhibitionData: jest.fn(),
+}));
+
+jest.mock('../services/geolocationService', () => ({
+  getCurrentPosition: jest.fn(),
+}));
+
+jest.mock('../services/municipalityService', () => ({
+  getCoordinates: jest.fn(),
+}));
+
+describe('FireBanChecker Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  test('toggles more information section', () => {
+  test('renders the header component', () => {
     render(<FireBanChecker />);
-    const moreInfoButton = screen.getByText(/more information/i);
-
-    // Initially, the "more information" section should be hidden
-    expect(screen.queryByText(/FWI Message/i)).not.toBeInTheDocument();
-
-    // Click the "more information" button to show the section
-    fireEvent.click(moreInfoButton);
-    expect(screen.getByText(/FWI Message/i)).toBeInTheDocument();
-
-    // Click again to hide the section
-    fireEvent.click(moreInfoButton);
-    expect(screen.queryByText(/FWI Message/i)).not.toBeInTheDocument();
+    const headerElement = screen.getByText(/Får du elda nu?/i);
+    expect(headerElement).toBeInTheDocument();
   });
 
-  test('handles geolocation error', async () => {
-    jest.spyOn(global.navigator.geolocation, 'getCurrentPosition').mockImplementation((success, error) => error());
+  test('renders the fire hazard scale', () => {
+    render(<FireBanChecker />);
+    const lowElement = screen.getByText(/Low/i);
+    const extremeElement = screen.getByText(/Extreme/i);
+    expect(lowElement).toBeInTheDocument();
+    expect(extremeElement).toBeInTheDocument();
+  });
+
+  test('renders the geolocation form', () => {
+    render(<FireBanChecker />);
+    const inputElement = screen.getByPlaceholderText(/Enter municipality/i);
+    expect(inputElement).toBeInTheDocument();
+  });
+
+  test('fetches data when form is submitted', async () => {
+    const { fetchFireBanData, fetchFireProhibitionData } = require('../services/fireBanService');
+    fetchFireBanData.mockResolvedValueOnce({ level: 'High' });
+    fetchFireProhibitionData.mockResolvedValueOnce({ status: 'Banned', revisionDate: '2021-12-01' });
 
     render(<FireBanChecker />);
-    const checkButton = screen.getByText(/check status/i);
-    fireEvent.click(checkButton);
 
-    const errorMessage = await screen.findByText(/failed to fetch data/i);
-    expect(errorMessage).toBeInTheDocument();
+    const inputElement = screen.getByPlaceholderText(/Enter municipality/i);
+    fireEvent.change(inputElement, { target: { value: 'Stockholm' } });
+
+    const buttonElement = screen.getByText(/Submit/i);
+    fireEvent.click(buttonElement);
+
+    expect(fetchFireBanData).toHaveBeenCalled();
+    expect(fetchFireProhibitionData).toHaveBeenCalled();
+  });
+
+  test('displays fetched data correctly', async () => {
+    const { fetchFireBanData, fetchFireProhibitionData } = require('../services/fireBanService');
+    fetchFireBanData.mockResolvedValueOnce({ level: 'High' });
+    fetchFireProhibitionData.mockResolvedValueOnce({ status: 'Banned', revisionDate: '2021-12-01' });
+
+    render(<FireBanChecker />);
+
+    const inputElement = screen.getByPlaceholderText(/Enter municipality/i);
+    fireEvent.change(inputElement, { target: { value: 'Stockholm' } });
+
+    const buttonElement = screen.getByText(/Submit/i);
+    fireEvent.click(buttonElement);
+
+    const fireHazardLevel = await screen.findByText(/High/i);
+    const fireBanStatus = await screen.findByText(/Banned/i);
+
+    expect(fireHazardLevel).toBeInTheDocument();
+    expect(fireBanStatus).toBeInTheDocument();
   });
 });
