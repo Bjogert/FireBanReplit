@@ -1,3 +1,5 @@
+/* header.css */
+/* header.css */
 .header {
   background-color: #c3cea3;
   color: white;
@@ -5,10 +7,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px; 
+  height: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 10;
+  width: 100%;
+  max-width: 800px; /* Match the max-width of the main container */
+  margin: 0 auto;   /* Center the header */
 }
 
 .header-left {
@@ -72,32 +77,20 @@
 @media (max-width: 768px) {
   .header {
     padding: 10px;
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+  
+.logo-img {
+    max-width: 55px;  
+    max-height: 55px; 
+    margin-right: 15px;
+  
+    width: auto;    
+    height: auto;     
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
   }
 
-  .logo-img {
-    height: 50px; /* Adjust as needed for smaller screens */
-  }
-}
-
-.collapsible-header {
-  cursor: pointer;
-  padding: 1px 1px; /* Minimal padding to reduce inner spacing */
-  display: flex;
-  justify-content: space-between; /* Space between icon and text */
-  align-items: center;
-  background-color: rgb(255, 255, 255, 0.9); /* Adjust background color */
-  border-radius: 0px;
-  color: #545454;
-  width: 100%; /* Full width */
-  height: 15px; /* Set a specific height */
-  box-sizing: border-box;
-  margin: 0px 0; /* Minimal space around the header */
-  user-select: none; /* Prevent text selection */
-  outline: none; /* Remove focus outline */
-  -webkit-user-select: none; /* Disable text selection in Safari */
-  -moz-user-select: none; /* Disable text selection in Firefox */
-  -ms-user-select: none; /* Disable text selection in Internet Explorer */
-  -webkit-tap-highlight-color: transparent; /* Disable highlight on mobile */
 }
 
 .collapsible-header {
@@ -151,3 +144,5 @@ li {
   text-indent: -10px; /* Ensure text starts at the right position */
   margin-bottom: 5px; /* Add space between items */
 }
+
+
