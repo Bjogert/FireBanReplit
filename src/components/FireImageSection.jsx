@@ -1,4 +1,4 @@
-// src/components/FireImageSection.jsx
+
 import React from 'react';
 
 const FireImageSection = ({ collapseContent, setCollapseContent }) => (

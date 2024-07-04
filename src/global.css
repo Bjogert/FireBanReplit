@@ -1,12 +1,109 @@
-/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: 10px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  .main {
+    max-width: 800px;
+    padding: 20px;
   }
-  
+
+  .header, .footer {
+    text-align: center;
+    padding: 20px;
+  }
+}
+
+.error-message {
+  color: red;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+.result-box {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 10px); 
+  max-width: 600px; 
+  text-align: left;
+  margin-left: 0; 
+}
+
+
+.result-box h3 {
+  margin-top: 0;
+}
+
+.last-updated {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+  color: #666;
+  margin-top: 0;
+}
+
+.last-updated span {
+  display: inline;
+}
+
+.source {
+  font-size: 9px;
+  color: #666;
+  margin-left: auto; /* Push the element to the right */
+  text-align: right; /* Ensure text aligns to the right */
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+}
+.detailed-info-text-box {
+  font-size: 14px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin: 5px 0; 
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 10px); 
+  max-width: 600px; 
+  text-align: left;
+  margin-left: 0; 
+}

@@ -1,12 +1,19 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eldkoll</title>
+  <link rel="stylesheet" href="./src/header.css">
+  <link rel="stylesheet" href="./src/global.css">
+  <link rel="stylesheet" href="./src/FireHazardScale.css">
   <link rel="stylesheet" href="./src/App.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .hidden-until-load {
+      display: none; /* Hide the content initially */
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -22,16 +29,21 @@
       </div>
       <div class="title">
         Får du elda nu?
-        <img src="/Logo.webp" alt="Logo" class="logo-img">
       </div>
     </div>
+    <img src="/Logo.webp" alt="Logo" class="logo-img">
   </header>
-  <div class="main">
-    <div id="root"></div>
+
+  <div class="main hidden-until-load">
+    <div id="root">
+      <!-- React app will mount here -->
+    </div>
   </div>
+
   <footer class="footer">
     <p>Plats för reklam.</p>
   </footer>
+
   <script type="module" src="./src/index.jsx"></script>
   <script>
     function toggleDropdown() {
@@ -60,6 +72,14 @@
         }
       }
     };
+
+    // Show the hidden content after the page loads
+    window.addEventListener('load', function() {
+      var hiddenElements = document.querySelectorAll('.hidden-until-load');
+      hiddenElements.forEach(function(element) {
+        element.classList.remove('hidden-until-load');
+      });
+    });
   </script>
 </body>
-</html>:
+</html>

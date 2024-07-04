@@ -148,7 +148,7 @@ const FireBanChecker = () => {
             <div className="detailed-info-text-box">
               {fireHazard.riskMessage || "Information not available."}
               <div className="last-updated">
-                Giltig: {fireHazard.periodEndDate ? formatFireHazardValidityPeriod(fireHazard.periodEndDate) : "Information not available."}
+                Giltig: <span dangerouslySetInnerHTML={{ __html: fireHazard.periodEndDate ? formatFireHazardValidityPeriod(fireHazard.periodEndDate) : "Information not available." }} /> <span className="source">Källa: MSB</span>
               </div>
             </div>
           </div>
@@ -158,49 +158,49 @@ const FireBanChecker = () => {
             {error && <div className="result error-message">{error}</div>}
             {fireBan && (
               <div className="result-box">
-                    <div className="status-box">
-                      <span>Det råder:</span> {fireBan.status || "Information not available."}
-                    </div>
-                    <div className="municipality-box">
-                      <span>Kommun:</span> {fireBan.county || "Information not available."}
-                    </div>
-                    <div className="last-updated">
-                      Uppdaterad: {fireBan.revisionDate ? formatFireBanUpdateDate(fireBan.revisionDate) : "Information not available."}
-                    </div>
-                    </div>
-                    )}
-                    {detailsVisible && fireHazard && (
-                    <div className="result-box detailed-info-box">
-                    <div className="collapsible-header" onClick={() => setShowMoreInfo(!showMoreInfo)}>
-                      <strong>Mer Information</strong>
-                      <i className={`fas fa-chevron-${showMoreInfo ? 'up' : 'down'}`}></i>
-                    </div>
-                    {showMoreInfo && (
-                      <div className="collapsible-content show">
-                        <ul>
-                          <li><strong>Aktuellt Läge:</strong> {fireHazard.fwiMessage || "Information not available."}</li>
-                          <li><strong>Brandsäkerhet:</strong> {fireHazard.combustibleMessage || "Information not available."}</li>
-                          <li><strong>Brandrisk Gräs:</strong> {fireHazard.grassMessage || "Information not available."}</li>
-                          <li><strong>I Skog & Mark:</strong> {fireHazard.woodMessage || "Information not available."}</li>
-                          <li><strong>Generellt:</strong> {fireHazard.riskMessage || "Information not available."}</li>
-                        </ul>
-                      </div>
-                    )}
-                    </div>
-                    )}
-                    </>
-                    )}
-                    <div className="image-container">
-                    <img
-                    src="/FireBanReplit/fire.webp"
-                    alt="Fire image"
-                    className="fire-image"
-                    onClick={() => setCollapseContent(!collapseContent)}
-                    />
-                    </div>
-                    </main>
-                    </div>
-                    );
-                    };
+                <div className="status-box">
+                  <span>Det råder:</span> {fireBan.status || "Information not available."}
+                </div>
+                <div className="municipality-box">
+                  <span>Kommun:</span> {fireBan.county || "Information not available."}
+                </div>
+                <div className="last-updated">
+                  Uppdaterad: <span dangerouslySetInnerHTML={{ __html: fireBan.revisionDate ? formatFireBanUpdateDate(fireBan.revisionDate) : "Information not available." }} /> <span className="source">Källa: MSB</span>
+                </div>
+              </div>
+            )}
+            {detailsVisible && fireHazard && (
+              <div className="result-box detailed-info-box">
+                <div className="collapsible-header" onClick={() => setShowMoreInfo(!showMoreInfo)}>
+                  <i className={`fas fa-chevron-${showMoreInfo ? 'up' : 'down'}`}></i>
+                  <strong>Mer Information</strong>
+                </div>
+                {showMoreInfo && (
+                  <div className="collapsible-content show">
+                    <ul>
+                      <li><strong>Aktuellt Läge:</strong> {fireHazard.fwiMessage || "Information not available."}</li>
+                      <li><strong>Brandsäkerhet:</strong> {fireHazard.combustibleMessage || "Information not available."}</li>
+                      <li><strong>I Skog & Mark:</strong> {fireHazard.woodMessage || "Information not available."}</li>
+                      <li><strong> Brandrisk Gräs: </strong> 
+{fireHazard.grassMessage ||         "Information not available."}</li>
+                      <li><strong>Generellt:</strong> {fireHazard.riskMessage || "Information not available."}</li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+        <div className="image-container">
+          <img
+            src="/FireBanReplit/fire.webp"
+            alt="Fire image"
+            className="fire-image"
+          />
+        </div>
+      </main>
+    </div>
+  );
+};
 
-                    export default FireBanChecker;
+export default FireBanChecker;
