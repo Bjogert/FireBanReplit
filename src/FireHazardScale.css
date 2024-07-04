@@ -1,9 +1,6 @@
 .fire-hazard-scale-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  position: relative; /* Needed for the pseudo-element */
+  margin-top: -10px;
+  transition: margin-top 0.3s ease; /* Smooth transition for margin change */
 }
 
 .fire-hazard-scale {
@@ -11,9 +8,9 @@
   width: 100%;
   height: 20px; /* Original height */
   margin: 10px 0;
-  border: 1px solid #000000; /* Thin dark border around the entire scale */
-  border-radius: 5px; /* Rounded corners for the entire scale */
-  overflow: visible; /* Make sure overflow is visible to allow the line to stick out */
+  border: 0.5px solid #383838;
+  border-radius: 5px; 
+  overflow: visible; 
 }
 
 .scale-segment {
@@ -21,58 +18,76 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* Needed for the pseudo-element */
+  position: relative;
+  font-size: 0; /* Hide text */
 }
 
-/* Original vivid colors */
+.scale-segment::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
 .scale-segment.grey {
   background-color: grey;
+  border: 0.5px solid #383838;
+  border-top-left-radius: 5px; 
+  border-bottom-left-radius: 5px; 
 }
 
 .scale-segment.blue {
   background-color: cyan;
+  border: 0.5px solid #383838;
 }
 
 .scale-segment.green {
   background-color: lime;
+    border: 0.5px solid #383838
 }
 
 .scale-segment.yellow {
   background-color: yellow;
+  border: 0.5px solid #383838
 }
 
 .scale-segment.orange {
   background-color: orange;
+  border: 0.5px solid #383838
 }
 
 .scale-segment.red {
   background-color: red;
+  border: 0.5px solid #383838
 }
 
 .scale-segment.darkred {
   background-color: darkred;
+  border: 0.5px solid #383838
+    background-color: grey;
+    border: 0.5px solid #383838;
+    border-top-right-radius: 5px; 
+    border-bottom-right-radius: 5px;
 }
 
 .scale-segment.active {
-  border: 1px solid #000000 !important; /* Black border around active segment */
-  outline: none !important; /* Explicitly remove any outline */
+border: 0.5px solid #383838
+!important; outline: none !important; 
 }
 
 .scale-segment.active::after {
   content: '';
   position: absolute;
-  top: -9px; /* Extend further above the segment */
-  bottom: -6px; /* Shorter extension below the segment */
+  top: -9px; 
+  bottom: -6px; 
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
-  height: calc(100% + 18px); /* Ensure the line extends correctly */
-  background-color: #000000; /* Line color */
-  z-index: 0; /* Ensure it is above other elements */
-}
-
-.scale-segment:not(.active):hover {
-  opacity: 0.7;
+  height: calc(100% + 18px); 
+  background-color: #000000;
+  z-index: 0; 
 }
 
 .scale-label {
@@ -81,14 +96,18 @@
   margin-top: 5px;
 }
 
-/* Increase specificity by using a parent class or element */
-div.detailed-info-text-box {
-  font-size: 14px;
+/* Ensuring the fire image doesn't cover the entire screen */
+.fire-image {
+  display: block;
+  margin: 0px auto;
+  max-width: 100%;
+  height: auto;
+  width: 300px;
+  opacity: 0.8;
+  filter: saturate(2);
+}
+
+.image-container {
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  margin: 5px 0;
-  border-radius: 10px; /* Match the inline style border-radius */
-  transition: background-color 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Match the inline style box-shadow */
-  width: 100%;
+  padding: 0px 0;
 }
