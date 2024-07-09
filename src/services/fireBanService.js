@@ -130,25 +130,18 @@ export const fetchWeeklyForecastData = async (latitude, longitude) => {
         }
 
         const data = await response.json();
-        console.log('Weekly forecast data received:', JSON.stringify(data, null, 2)); // Log the structured data
+        console.log('Weekly forecast data received:', JSON.stringify(data, null, 2));
 
-        // Extract only unique dates with their corresponding riskIndex
-        const uniqueData = data.reduce((acc, forecast) => {
-            const date = new Date(forecast.forecast.date).toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'numeric' });
-            if (!acc.some(f => f.date === date)) {
-                acc.push({
-                    date,
-                    riskIndex: forecast.forecast.riskIndex
-                });
-            }
-            return acc;
-        }, []);
+        const processedData = data.map(forecast => ({
+            date: new Date(forecast.forecast.date).toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'numeric' }),
+            riskIndex: forecast.forecast.riskIndex,
+            riskMessage: forecast.forecast.riskMessage
+        }));
 
-        console.log('Processed unique forecast data:', JSON.stringify(uniqueData, null, 2)); // Log the processed data
-        return uniqueData;
+        console.log('Processed forecast data:', JSON.stringify(processedData, null, 2));
+        return processedData;
     } catch (error) {
         console.error("Error fetching weekly forecast data:", error.message);
         throw error;
     }
 };
-
