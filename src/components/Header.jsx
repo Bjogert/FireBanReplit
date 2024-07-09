@@ -1,5 +1,3 @@
-export default Header;'react';
-
 const Header = () => (
   <header className="header">
     <div className="header-left">
