@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import municipalities from '../municipalities.json';
+import '../AutoComplete.css';  // Import the new CSS file
 
 const Autocomplete = ({ onMunicipalitySelect }) => {
   const [municipality, setMunicipality] = useState("");
@@ -49,9 +50,10 @@ const Autocomplete = ({ onMunicipalitySelect }) => {
   };
 
   return (
-    <div>
+    <div className="ac-autocomplete-container">
       <input
         type="text"
+        className="ac-autocomplete-input"
         value={municipality}
         onChange={onMunicipalityChange}
         onKeyDown={onKeyDown}
@@ -59,11 +61,11 @@ const Autocomplete = ({ onMunicipalitySelect }) => {
         required
       />
       {showSuggestions && municipality && (
-        <ul className="suggestions">
+        <ul className="ac-suggestions">
           {suggestions.map((suggestion, index) => {
             let className;
             if (index === activeSuggestionIndex) {
-              className = "suggestion-active";
+              className = "ac-suggestion-active";
             }
             return (
               <li className={className} key={suggestion} onClick={() => onSuggestionClick(suggestion)}>

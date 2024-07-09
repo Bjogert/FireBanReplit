@@ -1,5 +1,5 @@
 run = "npm run dev"
-modules = ["nodejs-20", "web", "nix"]
+modules = ["nix", "nodejs-20", "python-3.10", "web"]
 hidden = [".config", "package-lock.json"]
 
 [nix]

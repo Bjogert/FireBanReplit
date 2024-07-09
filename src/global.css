@@ -92,9 +92,9 @@ body {
   flex-direction: column;
   align-items: flex-start; /* Align items to the left */
 }
-.detailed-info-text-box {
-  font-size: 14px;
-  background-color: #f9f9f9;
+.fire-hazard-info-box. {
+  font-size: 3px;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   padding: 5px;
   margin: 5px 0; 
@@ -104,5 +104,6 @@ body {
   width: calc(100% - 10px); 
   max-width: 600px; 
   text-align: left;
-  margin-left: 0; 
+  margin-left: 0;
+  margin-top: 30px;
 }

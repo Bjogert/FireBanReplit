@@ -1,5 +1,3 @@
-/* header.css */
-/* header.css */
 .header {
   background-color: #c3cea3;
   color: white;
@@ -79,70 +77,14 @@
     padding: 10px;
     max-width: 100%; /* Allow full width on smaller screens */
   }
-  
-.logo-img {
+
+  .logo-img {
     max-width: 55px;  
     max-height: 55px; 
     margin-right: 15px;
-  
     width: auto;    
     height: auto;     
     mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
     -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
   }
-
 }
-
-.collapsible-header {
-  cursor: pointer;
-  padding: 1px 1px; /* Minimal padding to reduce inner spacing */
-  display: flex;
-  justify-content: space-between; /* Space between icon and text */
-  align-items: center;
-  background-color: rgb(255, 255, 255, 0.9); /* Adjust background color */
-  border-radius: 0px;
-  color: #545454;
-  width: 100%; /* Full width */
-  height: 15px; /* Set a specific height */
-  box-sizing: border-box;
-  margin: 0px 0; /* Minimal space around the header */
-  user-select: none; /* Prevent text selection */
-  outline: none; /* Remove focus outline */
-  -webkit-user-select: none; /* Disable text selection in Safari */
-  -moz-user-select: none; /* Disable text selection in Firefox */
-  -ms-user-select: none; /* Disable text selection in Internet Explorer */
-  -webkit-tap-highlight-color: transparent; /* Disable highlight on mobile */
-}
-
-.collapsible-header i {
-  transition: transform 0.3s;
-  font-size: 10px; /* Icon size */
-  margin-right: 150px; /* Add margin to the right of the icon */
-}
-
-.collapsible-content {
-  padding: 5px;
-  display: none;
-  font-size: 16px; /* Make text smaller for debugging */
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: left; /* Align text to the left */
-}
-
-.collapsible-content.show {
-  display: block;
-}
-
-ul {
-  padding-left: 10px; /* Adjust padding to indent list items */
-}
-
-li {
-  margin-left: 10px; /* Move bullet points to the left */
-  padding-left: 5px; /* Create space between bullet point and text */
-  list-style-position: outside; /* Place bullet point outside the padding */
-  display: block;
-  text-indent: -10px; /* Ensure text starts at the right position */
-  margin-bottom: 5px; /* Add space between items */
-}
-
-

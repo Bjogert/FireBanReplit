@@ -1,0 +1,59 @@
+.fh-box {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.fh-header {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #44656c;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.fh-header i {
+  transition: transform 0.3s;
+}
+
+.fh-header i.fa-chevron-down {
+  transform: rotate(0deg);
+}
+
+.fh-header i.fa-chevron-up {
+  transform: rotate(180deg);
+}
+
+.fh-content {
+  top: 0; /* Adjust as necessary */
+  left: 0; /* Adjust as necessary */
+  padding: 10px;
+  display: none;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  z-index: 2; /* Ensure this is higher than the fire image's z-index */
+}
+
+.fh-content.show {
+  display: block;
+}
+
+.fh-content ul {
+  list-style-type: none;
+  padding: 0; 
+  margin: 0;
+}
+
+.fh-content li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.fh-content li:last-child {
+  border-bottom: none;
+}

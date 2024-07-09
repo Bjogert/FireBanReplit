@@ -1,0 +1,115 @@
+.wf-collapsible-box {
+  position: absolute;
+  right: 0;
+  margin-right: 35px;
+  top: 83px;
+  width: 120px;
+  background-color: #c3cea3;
+  border: 1px solid #4b6e54;
+  border-radius: 5px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.wf-collapsible-header {
+  cursor: pointer;
+  padding: 0 5px;
+  background-color: #44656c;
+  color: white;
+  border-bottom: 1px solid #31422d;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 18px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wf-collapsible-header .text {
+  flex-grow: 1;
+  margin-left: 5px;
+}
+
+.wf-collapsible-header i {
+  margin-left: 5px;
+  transition: transform 0.4s;
+}
+
+.wf-collapsible-header i.fa-chevron-down {
+  transform: rotate(0deg);
+}
+
+.wf-collapsible-header i.fa-chevron-up {
+  transform: rotate(180deg);
+}
+
+.wf-collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: #c3cea3;
+  border: 1px solid #4b6e54;
+  border-radius: 5px;
+}
+
+.wf-collapsible-content.show {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+}
+
+.wf-collapsible-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wf-collapsible-content li {
+  padding: 4px 6px;
+  font-size: 12px;
+  border-bottom: 1px solid #2c2c2c; /* Dark border */
+  display: block; /* Ensure items are in a column */
+}
+
+.wf-collapsible-content li:last-child {
+  border-bottom: none;
+}
+
+/* Weekly Hazard Level Styles */
+.wf-grey {
+  background-color: grey;
+  border: 0.5px solid #383838;
+}
+
+.wf-blue {
+  background-color: cyan;
+  border: 0.5px solid #383838;
+}
+
+.wf-green {
+  background-color: lime;
+  border: 0.5px solid #383838;
+}
+
+.wf-yellow {
+  background-color: yellow;
+  border: 0.5px solid #383838;
+}
+
+.wf-orange {
+  background-color: orange;
+  border: 0.5px solid #383838;
+}
+
+.wf-red {
+  background-color: red;
+  border: 0.5px solid #383838;
+}
+
+.wf-darkred {
+  background-color: darkred;
+  border: 0.5px solid #383838;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

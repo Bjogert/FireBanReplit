@@ -62,6 +62,8 @@ export const fetchFireBanData = async (latitude, longitude) => {
     }
 };
 
+
+
 export const fetchFireProhibitionData = async (latitude, longitude) => {
     const targetUrl = `https://api.msb.se/brandrisk/v2/FireProhibition/sv/${latitude}/${longitude}`;
     const url = proxyUrl + targetUrl;
@@ -109,3 +111,44 @@ export const fetchFireProhibitionData = async (latitude, longitude) => {
         return { status: "Failed to fetch data" };
     }
 };
+
+
+export const fetchWeeklyForecastData = async (latitude, longitude) => {
+    const targetUrl = `https://api.msb.se/brandrisk/v2/RiskPartOfDayForecast/sv/${latitude}/${longitude}`;
+    const url = proxyUrl + targetUrl;
+    console.log(`Fetching data from: ${url}`);
+
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data, status code: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Weekly forecast data received:', JSON.stringify(data, null, 2)); // Log the structured data
+
+        // Extract only unique dates with their corresponding riskIndex
+        const uniqueData = data.reduce((acc, forecast) => {
+            const date = new Date(forecast.forecast.date).toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'numeric' });
+            if (!acc.some(f => f.date === date)) {
+                acc.push({
+                    date,
+                    riskIndex: forecast.forecast.riskIndex
+                });
+            }
+            return acc;
+        }, []);
+
+        console.log('Processed unique forecast data:', JSON.stringify(uniqueData, null, 2)); // Log the processed data
+        return uniqueData;
+    } catch (error) {
+        console.error("Error fetching weekly forecast data:", error.message);
+        throw error;
+    }
+};
+
