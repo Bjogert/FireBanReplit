@@ -113,6 +113,7 @@ export const fetchFireProhibitionData = async (latitude, longitude) => {
 };
 
 
+
 export const fetchWeeklyForecastData = async (latitude, longitude) => {
     const targetUrl = `https://api.msb.se/brandrisk/v2/RiskPartOfDayForecast/sv/${latitude}/${longitude}`;
     const url = proxyUrl + targetUrl;
@@ -132,14 +133,58 @@ export const fetchWeeklyForecastData = async (latitude, longitude) => {
         const data = await response.json();
         console.log('Weekly forecast data received:', JSON.stringify(data, null, 2));
 
-        const processedData = data.map(forecast => ({
-            date: new Date(forecast.forecast.date).toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'numeric' }),
-            riskIndex: forecast.forecast.riskIndex,
-            riskMessage: forecast.forecast.riskMessage
-        }));
+        const processedData = data.reduce((acc, item) => {
+            const date = new Date(item.forecast.date).toLocaleDateString('sv-SE', {
+                weekday: 'short',
+                day: 'numeric',
+                month: 'numeric'
+            });
 
-        console.log('Processed forecast data:', JSON.stringify(processedData, null, 2));
-        return processedData;
+            // Capitalize the first letter of the weekday
+            const capitalizedDate = date.charAt(0).toUpperCase() + date.slice(1);
+
+            if (!acc[capitalizedDate]) {
+                acc[capitalizedDate] = {
+                    fwiIndices: [],
+                    combustibleIndices: [],
+                    grassIndices: [],
+                    woodIndices: [],
+                    riskIndices: [],
+                };
+            }
+
+            acc[capitalizedDate].fwiIndices.push(item.forecast.fwiIndex);
+            acc[capitalizedDate].combustibleIndices.push(item.forecast.combustibleIndex);
+            acc[capitalizedDate].grassIndices.push(item.forecast.grassIndex);
+            acc[capitalizedDate].woodIndices.push(item.forecast.woodIndex);
+            acc[capitalizedDate].riskIndices.push(item.forecast.riskIndex);
+
+            return acc;
+        }, {});
+
+        const average = (arr) => {
+            const validValues = arr.filter(v => v !== -1);
+            return validValues.reduce((sum, val) => sum + val, 0) / validValues.length;
+        };
+
+        const organizedData = Object.keys(processedData).map(date => {
+            const fwiIndex = Math.round(average(processedData[date].fwiIndices));
+            const combustibleIndex = Math.round(average(processedData[date].combustibleIndices));
+            const grassIndex = Math.round(average(processedData[date].grassIndices.filter(v => v !== -1)));
+            const woodIndex = Math.round(average(processedData[date].woodIndices));
+            const riskIndex = Math.round(average(processedData[date].riskIndices));
+
+            const indices = [fwiIndex, combustibleIndex, grassIndex, woodIndex, riskIndex].filter(v => !isNaN(v));
+            const masterCombustibleIndex = Math.round(average(indices));
+
+            return {
+                date,
+                masterCombustibleIndex
+            };
+        });
+
+        console.log('Processed forecast data:', JSON.stringify(organizedData, null, 2));
+        return organizedData;
     } catch (error) {
         console.error("Error fetching weekly forecast data:", error.message);
         throw error;

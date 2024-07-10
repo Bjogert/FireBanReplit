@@ -1,34 +1,35 @@
+/* Example CSS to move the element */
 .wf-collapsible-box {
-  position: absolute;
-  right: 0;
-  margin-right: 35px;
-  top: 83px;
-  width: 120px;
-  background-color: #c3cea3;
-  border: 1px solid #4b6e54;
+  position: relative;
+  top: -203px; /* Moves the element down by 50px */
+  left: 50px; /* Moves the element to the right by 20px */
+  margin-right: 0px;
+  width: 130px;
+  background-color: #f4f7f0;
+  border: 1px solid #798a79;
   border-radius: 5px;
-  z-index: 10;
+  z-index: 1;
   overflow: hidden;
 }
 
 .wf-collapsible-header {
   cursor: pointer;
-  padding: 0 5px;
-  background-color: #44656c;
-  color: white;
-  border-bottom: 1px solid #31422d;
+  padding: 8 8px;
+  background-color: #f4f7f0;
+  color: black;
+  border-bottom: 0px solid #798a79;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  height: 18px;
-  font-size: 14px;
+  height: 15px;
+  font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .wf-collapsible-header .text {
-  flex-grow: 1;
+  flex-grow: 3;
   margin-left: 5px;
 }
 
@@ -49,13 +50,13 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
-  background-color: #c3cea3;
-  border: 1px solid #4b6e54;
-  border-radius: 5px;
+  background-color: #f4f7f0;
+  border: 1px solid #798a79;
+  border-radius: 1px;
 }
 
 .wf-collapsible-content.show {
-  max-height: 1000px;
+  max-height: 300px;
   transition: max-height 0.5s ease-in;
 }
 
@@ -66,9 +67,9 @@
 }
 
 .wf-collapsible-content li {
-  padding: 4px 6px;
+  padding: 1px 1px;
   font-size: 12px;
-  border-bottom: 1px solid #2c2c2c; /* Dark border */
+  border-bottom: 0px solid #798a79; /* Dark border */
   display: block; /* Ensure items are in a column */
 }
 
@@ -112,4 +113,9 @@
   border: 0.5px solid #383838;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.open .wf-collapsible-content {
+  max-height: 400px;
+  transition: max-height 0.5s ease-in;
 }

@@ -17,6 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  z-index: 0;
 }
 
 .footer {

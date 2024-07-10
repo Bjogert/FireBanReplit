@@ -22,6 +22,7 @@
   align-items: flex-start; /* Align to the left */
   width: 100%;
   margin-top: -18px;
+  z-index: 2;
 }
 
 .fire-hazard-scale {
