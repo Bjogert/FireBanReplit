@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Launch Chrome against localhost",
+        "url": "http://localhost:5173/FireBanReplit/",
+        "webRoot": "${workspaceFolder}"
+      }
+    ],
+    "compounds": [
+      {
+        "name": "Build and Launch",
+        "preLaunchTask": "Build and Dev",
+        "configurations": ["Launch Chrome against localhost"]
+      }
+    ]
+  }
+  

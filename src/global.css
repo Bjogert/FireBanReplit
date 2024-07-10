@@ -1,3 +1,6 @@
+/* Global */
+
+/* Base Styles */
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
@@ -7,6 +10,13 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.header, .footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
 }
 
 .main {
@@ -21,25 +31,9 @@ body {
 }
 
 .footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 10px;
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-@media (min-width: 769px) {
-  .main {
-    max-width: 800px;
-    padding: 20px;
-  }
-
-  .header, .footer {
-    text-align: center;
-    padding: 20px;
-  }
 }
 
 .error-message {
@@ -88,13 +82,8 @@ body {
   text-align: right; /* Ensure text aligns to the right */
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
-}
-.fire-hazard-info-box. {
-  font-size: 3px;
+.fire-hazard-info-box {
+  font-size: 14px;
   background-color: #ffffff;
   border: 1px solid #ddd;
   padding: 5px;
@@ -107,4 +96,21 @@ body {
   text-align: left;
   margin-left: 0;
   margin-top: 30px;
+}
+
+@media (min-width: 769px) {
+  .main {
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto; /* Center the main content */
+  }
+
+  .header, .footer {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .footer {
+    position: static; /* Remove fixed positioning for larger screens */
+  }
 }

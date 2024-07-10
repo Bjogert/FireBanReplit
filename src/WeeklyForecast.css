@@ -1,9 +1,7 @@
-/* Example CSS to move the element */
+/* Weekly forecast */
 .wf-collapsible-box {
   position: relative;
-  top: -203px; /* Moves the element down by 50px */
-  left: 50px; /* Moves the element to the right by 20px */
-  margin-right: 0px;
+  margin: 10px 0; /* Add margin for spacing */
   width: 130px;
   background-color: #f4f7f0;
   border: 1px solid #798a79;
@@ -14,7 +12,7 @@
 
 .wf-collapsible-header {
   cursor: pointer;
-  padding: 8 8px;
+  padding: 8px;
   background-color: #f4f7f0;
   color: black;
   border-bottom: 0px solid #798a79;
@@ -118,4 +116,37 @@
 .open .wf-collapsible-content {
   max-height: 400px;
   transition: max-height 0.5s ease-in;
+}
+
+/* Container to align header and main content */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header, main, and footer styles to match the container */
+.header, .main, .footer {
+  box-sizing: border-box;
+}
+
+.header-left .title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.logo-img {
+  width: 50px;
+  height: auto;
+  margin-left: 10px;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
 }

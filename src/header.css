@@ -1,3 +1,13 @@
+/* Header */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .header {
   background-color: #c3cea3;
   color: white;
@@ -5,13 +15,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 10;
   width: 100%;
-  max-width: 800px; /* Match the max-width of the main container */
-  margin: 0 auto;   /* Center the header */
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header-left {
@@ -19,12 +26,17 @@
   align-items: center;
 }
 
+.logo-img {
+  max-width: 55px;
+  max-height: 55px;
+  margin-right: 15px;
+  width: auto;
+  height: auto;
+}
+
 .title {
   font-size: 24px;
   font-weight: bold;
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
 }
 
 .dropdown {
@@ -35,17 +47,11 @@
 .dropbtn {
   background-color: #44656c;
   color: white;
-  font-size: 17px; /* Adjust font size */
-  padding: 0 0px; /* Adjust padding for more space around the text */
-  width: 70px; /* Set a specific width */
-  height: 20px; /* Set a specific height */
-  line-height: 15px; /* Match line-height to height for vertical centering */
+  font-size: 17px;
+  padding: 10px 20px;
   border: 1px solid #31422d;
   border-radius: 4px;
   cursor: pointer;
-  overflow: hidden; 
-  white-space: nowrap;
-  position: relative; 
 }
 
 .dropdown-content {
@@ -54,37 +60,60 @@
   background-color: #c3cea3;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 2;
-  width: auto;
-  min-width: 80px;
+  min-width: 150px;
   border: 1px solid #4b6e54;
   border-radius: 5px;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 6px 8px;
+  padding: 10px 15px;
   text-decoration: none;
   display: block;
-  font-size: 12px;
 }
 
 .dropdown-content a:hover {
   background-color: #b5ebcb;
 }
 
+.fire-hazard-info-box {
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 30px);
+  max-width: 600px;
+  text-align: left;
+}
+
 @media (max-width: 768px) {
   .header {
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
-    max-width: 100%; /* Allow full width on smaller screens */
+  }
+
+  .title {
+    font-size: 20px;
+    margin: 10px 0;
   }
 
   .logo-img {
-    max-width: 55px;  
-    max-height: 55px; 
-    margin-right: 15px;
-    width: auto;    
-    height: auto;     
-    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
-    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+    max-width: 40px;
+    max-height: 40px;
+    margin-right: 0;
+  }
+
+  .dropbtn {
+    font-size: 15px;
+    padding: 8px 16px;
+  }
+
+  .fire-hazard-info-box {
+    font-size: 12px;
+    padding: 10px;
   }
 }
