@@ -1,6 +1,6 @@
 /* Fire Hazard Info Box */
 .fh-box {
-  border: 1px solid #ddd;
+  border: 1px solid #ffffff;
   border-radius: 5px;
   margin: 10px 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -75,4 +75,9 @@
   .fh-content {
     font-size: 16px; /* Adjust font size for readability on larger screens */
   }
+}
+
+.fire-hazard-info-box {
+  font-size: 12px;
+  padding: 10px; 
 }

@@ -19,6 +19,9 @@ body {
   max-width: 800px;
   margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed; /* Ensure the header is fixed */
+  top: 0;
+  z-index: 5;
 }
 
 .header-left {
@@ -42,6 +45,7 @@ body {
 .dropdown {
   position: relative;
   display: inline-block;
+  z-index: 10; /* Higher z-index to ensure dropdown is on top */
 }
 
 .dropbtn {
@@ -52,6 +56,10 @@ body {
   border: 1px solid #31422d;
   border-radius: 4px;
   cursor: pointer;
+  position: absolute; /* Ensure dropbtn is positioned */
+  z-index: 15; /* Ensure button is above the content */
+  top: 10px; /* Adjust top position */
+  right: 15px; /* Adjust right position */
 }
 
 .dropdown-content {
@@ -59,10 +67,12 @@ body {
   position: absolute;
   background-color: #c3cea3;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
+  z-index: 20; /* Ensure dropdown content is above other elements */
   min-width: 150px;
   border: 1px solid #4b6e54;
   border-radius: 5px;
+  top: 40px; /* Adjust this value as needed to position below button */
+  right: 15px; /* Align with the right edge of the button */
 }
 
 .dropdown-content a {
@@ -82,38 +92,76 @@ body {
   border: 1px solid #ddd;
   padding: 15px;
   margin: 15px 0;
+  margin-top: 500px; 
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: calc(100% - 30px);
   max-width: 600px;
   text-align: left;
-}
+} 
 
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 0px; 
+    min-height: 50px; 
   }
 
   .title {
     font-size: 20px;
-    margin: 10px 0;
+    margin: 3px 0px;
+    padding-right: 80px; /* Adjust the value to move it left */
+    margin-top: 8px; /* Adjust this value to lower the text */
   }
 
   .logo-img {
+    position: absolute;
     max-width: 40px;
     max-height: 40px;
     margin-right: 0;
+    top: 5px; 
+    right: 10px;
+    z-index: 5; /* Ensure logo is above other elements */
   }
 
   .dropbtn {
+    position: absolute; /* Change to absolute for positioning */
     font-size: 15px;
-    padding: 8px 16px;
+    padding: 0px 25px;
+    top: 0px; /* Adjust top position */
+    right: -35px; /* Align to the right edge */
+    z-index: 15; /* Ensure button is above the content */
   }
 
-  .fire-hazard-info-box {
+  .dropdown-content {
+    position: absolute; /* Position relative to dropbtn */
+    min-width: 150px; /* Adjusted width */
+    top: 100%; /* Positioned just below the button */
+    right: 10px; /* Align to the right edge of the button */
+    z-index: 20; /* Ensure it's above other elements */
+    padding: 0px;
     font-size: 12px;
-    padding: 10px;
+  }
+
+  .dropdown-content a {
+    padding: 5px 5px; /* Reduced padding for tighter text */
+  }
+}
+
+@media (orientation: landscape) {
+  .header {
+    flex-direction: row; /* Ensure header elements align in a row */
+    justify-content: space-between; /* Distribute space evenly */
+  }
+
+  .dropbtn {
+    top: 5px; /* Adjust as needed for landscape */
+    right: -80px; /* Ensure alignment in landscape mode */
+  }
+
+  .dropdown-content {
+    top: 40px; /* Adjust this value as needed to position below button */
+    right: 10px; /* Align with the right edge of the button */
   }
 }

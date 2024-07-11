@@ -12,13 +12,6 @@ body {
   min-height: 100vh;
 }
 
-.header, .footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
 .main {
   flex: 1;
   padding: 10px;
@@ -27,7 +20,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  z-index: 0;
+  max-width: 100%; /* Allow full width initially */
+  margin: 0 auto; /* Center the main content */
 }
 
 .footer {
@@ -48,7 +42,8 @@ body {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   padding: 5px;
-  margin: 5px 0;
+  margin: 5px 0 5px 0; 
+  margin-top: 0px; 
   border-radius: 8px;
   transition: background-color 0.3s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -82,35 +77,43 @@ body {
   text-align: right; /* Ensure text aligns to the right */
 }
 
-.fire-hazard-info-box {
-  font-size: 14px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  padding: 5px;
-  margin: 5px 0; 
-  border-radius: 8px;
-  transition: background-color 0.3s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: calc(100% - 10px); 
-  max-width: 600px; 
-  text-align: left;
-  margin-left: 0;
-  margin-top: 30px;
-}
-
+/*@media for larger screens */
 @media (min-width: 769px) {
   .main {
+    padding-top: 0px;
     max-width: 800px;
     padding: 20px;
     margin: 0 auto; /* Center the main content */
   }
-
-  .header, .footer {
-    text-align: center;
-    padding: 20px;
-  }
   
   .footer {
     position: static; /* Remove fixed positioning for larger screens */
+  }
+}
+
+/*@media for smaller screens */
+@media (max-width: 768px) {
+  .main {
+    padding-top: 0px;
+    width: 100%; /* Full width for smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+}
+
+/*@media for landscape orientation */
+@media (orientation: landscape) {
+  .main {
+    padding-top: 50px;
+    width: 100vw; /* Full viewport width in landscape mode */
+    padding: 0px; /* Adjust padding if needed */
+  }
+}
+
+/*@media for portrait orientation */
+@media (orientation: portrait) {
+  .main {
+    padding-top: 0px;
+    width: 100vw; /* Full viewport width in portrait mode */
+    padding: 0px; /* Adjust padding if needed */
   }
 }

@@ -54,7 +54,7 @@
 }
 
 .wf-collapsible-content.show {
-  max-height: 300px;
+  max-height: 1000px;
   transition: max-height 0.5s ease-in;
 }
 
@@ -137,11 +137,7 @@
   margin-left: 10px;
 }
 
-.logo-img {
-  width: 50px;
-  height: auto;
-  margin-left: 10px;
-}
+
 
 .footer {
   background-color: #333;
