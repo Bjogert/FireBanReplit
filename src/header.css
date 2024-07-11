@@ -11,7 +11,7 @@ body {
 .header {
   background-color: #c3cea3;
   color: white;
-  padding: 15px;
+  padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: fixed; /* Ensure the header is fixed */
   top: 0;
-  z-index: 5;
+  z-index: 101; /* Ensure it's above other elements */
 }
 
 .header-left {
@@ -38,46 +38,50 @@ body {
 }
 
 .title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
+  right: 510px; /* Adjust as needed */
+  top: 15px;
+  position: absolute; /* Ensure it's positioned */
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
-  z-index: 10; /* Higher z-index to ensure dropdown is on top */
+  z-index: 102; /* Higher z-index to ensure dropdown is on top */
 }
 
 .dropbtn {
   background-color: #44656c;
   color: white;
   font-size: 17px;
-  padding: 10px 20px;
+  padding: 0px 30px;
   border: 1px solid #31422d;
   border-radius: 4px;
   cursor: pointer;
   position: absolute; /* Ensure dropbtn is positioned */
-  z-index: 15; /* Ensure button is above the content */
-  top: 10px; /* Adjust top position */
-  right: 15px; /* Adjust right position */
+  z-index: 103; /* Ensure button is above the content */
+  top: -9px; /* Adjust top position */
+  right: -100px; /* Adjust right position */
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #c3cea3;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 20; /* Ensure dropdown content is above other elements */
-  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 104; /* Ensure dropdown content is above other elements */
+  min-width: 50px;
   border: 1px solid #4b6e54;
   border-radius: 5px;
-  top: 40px; /* Adjust this value as needed to position below button */
-  right: 15px; /* Align with the right edge of the button */
+  top: 13.5px; /* Adjust this value as needed to position below button */
+  right: -100px; /* Align with the right edge of the button */
 }
 
 .dropdown-content a {
+  font-size: 14px;
   color: black;
-  padding: 10px 15px;
+  padding: 3px 5px;
   text-decoration: none;
   display: block;
 }
@@ -98,6 +102,7 @@ body {
   width: calc(100% - 30px);
   max-width: 600px;
   text-align: left;
+  z-index: 100; /* Lower z-index */
 } 
 
 @media (max-width: 768px) {
@@ -113,8 +118,11 @@ body {
     margin: 3px 0px;
     padding-right: 80px; /* Adjust the value to move it left */
     margin-top: 8px; /* Adjust this value to lower the text */
+    position: absolute; /* Ensure it's positioned */
+    top: 50px; /* Adjust top position for small screens */
+    right: 50px; /* Adjust right position for small screens */
   }
-
+  
   .logo-img {
     position: absolute;
     max-width: 40px;
@@ -131,7 +139,7 @@ body {
     padding: 0px 25px;
     top: 0px; /* Adjust top position */
     right: -35px; /* Align to the right edge */
-    z-index: 15; /* Ensure button is above the content */
+    z-index: 100; /* Ensure button is above the content */
   }
 
   .dropdown-content {
@@ -139,7 +147,7 @@ body {
     min-width: 150px; /* Adjusted width */
     top: 100%; /* Positioned just below the button */
     right: 10px; /* Align to the right edge of the button */
-    z-index: 20; /* Ensure it's above other elements */
+    z-index: 101; /* Ensure it's above other elements */
     padding: 0px;
     font-size: 12px;
   }
@@ -157,7 +165,7 @@ body {
 
   .dropbtn {
     top: 5px; /* Adjust as needed for landscape */
-    right: -80px; /* Ensure alignment in landscape mode */
+    right: -70px; /* Ensure alignment in landscape mode */
   }
 
   .dropdown-content {

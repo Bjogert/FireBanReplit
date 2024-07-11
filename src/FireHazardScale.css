@@ -6,29 +6,33 @@
   align-items: flex-start; /* Align to the left */
   position: relative;
   z-index: 20;
-  top: 50px;
-  margin-left: 10px; /* Adjust as necessary for left alignment */
+  margin-top: 75px;
+  margin-left: 12px; /* Adjust as necessary for left alignment */
 }
 
 .text-box {
   width: 100px; /* Adjust width as needed */
   padding: 0px;
-  margin-bottom: -8px; /* Space between the text box and the scale */margin-left: 3px;
+  margin-bottom: -8px; /* Space between the text box and the scale */
+  margin-left: 3px;
   font-size: 10px;
   border: none; /* Make the border invisible */
   background: transparent; /* Make the background transparent */
   outline: none; /* Remove the outline */
 }
 
-.fire-hazard-scale-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align to the left */
-  width: 100%;
-  margin-top: 2px;
-  margin-left: 3px;
-  z-index: 2;
+.detailed-info-text-box {
+  margin-top: 0px;
+  margin-left: 12px; 
+  flex: 1; /* Ensure it grows to fill the available space */
+  width: 97%; /* Set width to 100% */
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-sizing: border-box; /* Include padding and border in width */
 }
+
 
 .fire-hazard-scale {
   display: flex;
@@ -115,14 +119,6 @@
   z-index: 0;
 }
 
-.detailed-info-text-box {
-  margin-top: 10px;
-  width: 300px; /* Adjust width to match scale */
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
 
 .scale-label {
   font-size: 14px;
