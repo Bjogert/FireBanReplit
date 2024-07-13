@@ -142,6 +142,11 @@ const FireBanChecker = () => {
             </form>
           )}
         </div>
+        {latitude && longitude && (
+          <div className="weekly-forecast-container">
+            <WeeklyForecast latitude={latitude} longitude={longitude} />
+          </div>
+        )}
         {fireHazard && (
           <div className="fire-hazard-scale-container">
             <FireHazardScale level={fireHazard.riskIndex} />
@@ -151,9 +156,6 @@ const FireBanChecker = () => {
                 Giltig: <span dangerouslySetInnerHTML={{ __html: fireHazard.periodEndDate ? formatFireHazardValidityPeriod(fireHazard.periodEndDate) : "Information not available." }} /> <span className="source">Källa: MSB</span>
               </div>
             </div>
-            {latitude && longitude && (
-              <WeeklyForecast latitude={latitude} longitude={longitude} />
-            )}
             <FireHazardInfoBox fireHazard={fireHazard} /> {/* Use the new component */}
           </div>
         )}

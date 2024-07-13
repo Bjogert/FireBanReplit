@@ -3,10 +3,11 @@
 .ac-autocomplete-container {
   position: relative;
   display: flex;
-  top: 72px;
+  top: 58px;
   left: 12px;
   flex-direction: column;
   width: 70%;
+  margin-bottom: 5px; /* Adjust the value as needed */
 }
 
 .ac-autocomplete-input {
@@ -35,7 +36,7 @@
   width: 98.5%;
   z-index: 1000; /* Ensure it's above other elements */
   position: absolute; /* Ensure it's positioned relative to the container */
-  top: 30px; /* Move it further down */
+  top: 0px; /* Move it further down */
   left: 0px; /* Align with the input */
 }
 
@@ -88,7 +89,7 @@
 
 @media (max-width: 768px) {
   .ac-suggestions {
-    top: 30px; /* Adjust this value for smaller screens */
+    top: 29px; /* Adjust this value for smaller screens */
     left: 0px; /* Align with the input */
   }
 }

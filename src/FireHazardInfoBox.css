@@ -1,6 +1,6 @@
 /* Fire Hazard Info Box */
 .fh-box {
-  border: 1px solid #ffffff;
+  border: 1px solid #e8f2e6;
   border-radius: 5px;
   margin: 10px 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -12,13 +12,20 @@
 
 .fh-header {
   cursor: pointer;
-  padding: 10px;
-  background-color: #44656c;
-  color: white;
+  padding: 2px;
+  background-color: #c3cea3;
+  color: #273325;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 5px 5px 0 0; /* Only top corners rounded */
+  border-radius: 8px 8px 0 0; /* Only top corners rounded */
+  user-select: none; /* Prevent text selection */
+  -webkit-tap-highlight-color: transparent; /* Disable highlight color on mobile */
+}
+
+.fh-header:focus,
+.fh-header:active {
+  outline: none; /* Remove the outline on focus */
 }
 
 .fh-header i {

@@ -42,15 +42,15 @@ body {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   padding: 5px;
-  margin: 5px 0 5px 0; 
+  margin: 10px 0 5px 0; 
   margin-top: 0px; 
   border-radius: 8px;
   transition: background-color 0.3s;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: calc(100% - 10px); 
+  width: calc(94% - 10px); 
   max-width: 600px; 
   text-align: left;
-  margin-left: 0; 
+  margin-left: 8px; 
 }
 
 .result-box h3 {

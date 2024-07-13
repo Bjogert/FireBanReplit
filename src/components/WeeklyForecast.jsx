@@ -63,17 +63,24 @@ const WeeklyForecast = ({ latitude, longitude }) => {
   return (
     <div ref={boxRef} className={`wf-collapsible-box ${isOpen ? 'open' : ''}`}>
       <div className="wf-collapsible-header" onClick={toggleBox}>
-        <strong>Idag-Övermorgon</strong>
+        <span>Idag-Övermorgon</span>
       </div>
       <div className={`wf-collapsible-content ${isOpen ? 'show' : ''}`}>
         <ul>
-          {weeklyForecast.map((day, index) => (
-            <li key={index} className={levels[day.masterCombustibleIndex]?.className || 'wf-grey'}>
-              <span>
-                {day.date}: {levels[day.masterCombustibleIndex]?.label || 'Ingen data'}
-              </span>
-            </li>
-          ))}
+          {weeklyForecast.map((day, index) => {
+            const [weekday, date] = day.date.split(', '); // Assuming the date format is "Weekday, DD/MM"
+            return (
+              <li key={index} className="wf-forecast-item">
+                <div className="wf-date-time">
+                  <span className="day">{weekday}</span>
+                  <span className="date">{date}</span>
+                </div>
+                <div className={`wf-hazard-index ${levels[day.masterCombustibleIndex]?.className || 'wf-grey'}`}>
+                  {levels[day.masterCombustibleIndex]?.label || 'Ingen data'}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
