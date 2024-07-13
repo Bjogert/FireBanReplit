@@ -1,0 +1,90 @@
+/* Fire Hazard Info Box */
+.fh-box {
+  border: 1px solid #e8f2e6;
+  border-radius: 5px;
+  margin: 10px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 20px); /* Adjust for mobile-first layout */
+  max-width: 600px; /* Set a max width for larger screens */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fh-header {
+  cursor: pointer;
+  padding: 2px;
+  background-color: #c3cea3;
+  color: #273325;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px 8px 0 0; /* Only top corners rounded */
+  user-select: none; /* Prevent text selection */
+  -webkit-tap-highlight-color: transparent; /* Disable highlight color on mobile */
+}
+
+.fh-header:focus,
+.fh-header:active {
+  outline: none; /* Remove the outline on focus */
+}
+
+.fh-header i {
+  transition: transform 0.3s;
+}
+
+.fh-header i.fa-chevron-down {
+  transform: rotate(0deg);
+}
+
+.fh-header i.fa-chevron-up {
+  transform: rotate(180deg);
+}
+
+.fh-content {
+  padding: 10px;
+  display: none;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  border-radius: 0 0 5px 5px; /* Only bottom corners rounded */
+}
+
+.fh-content.show {
+  display: block;
+}
+
+.fh-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fh-content li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.fh-content li:last-child {
+  border-bottom: none;
+}
+
+/* Media Queries for Larger Screens */
+@media (min-width: 769px) {
+  .fh-box {
+    width: 80%; /* Adjust width for larger screens */
+    max-width: 800px; /* Increase max width */
+  }
+
+  .fh-header, .fh-content {
+    padding: 20px; /* Increase padding for better spacing */
+  }
+
+  .fh-content {
+    font-size: 16px; /* Adjust font size for readability on larger screens */
+  }
+}
+
+.fire-hazard-info-box {
+  font-size: 12px;
+  padding: 10px; 
+}

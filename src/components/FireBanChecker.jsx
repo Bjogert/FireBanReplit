@@ -4,27 +4,30 @@ import { getCurrentPosition } from '../services/geolocationService';
 import { getCoordinates } from '../services/municipalityService';
 import FireHazardScale from './FireHazardScale';
 import Autocomplete from './Autocomplete';
+import WeeklyForecast from './WeeklyForecast';
+import FireHazardInfoBox from './FireHazardInfoBox'; // Import the new component
 import '../App.css';
 
 const FireBanChecker = () => {
-  const [buttonText, setButtonText] = useState("Hämta Info");
-  const [buttonClass, setButtonClass] = useState("");
   const [error, setError] = useState(null);
   const [fireHazard, setFireHazard] = useState(null);
   const [fireBan, setFireBan] = useState(null);
-  const [showMoreInfo, setShowMoreInfo] = useState(false); 
   const [detailsVisible, setDetailsVisible] = useState(false);
   const [municipality, setMunicipality] = useState("");
   const [useGeolocation, setUseGeolocation] = useState(true);
   const [dataFetched, setDataFetched] = useState(false);
   const [showMunicipalityForm, setShowMunicipalityForm] = useState(false);
   const [collapseContent, setCollapseContent] = useState(false);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { coords } = await getCurrentPosition();
         const { latitude, longitude } = coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
         fetchDataWithCoordinates(latitude, longitude);
       } catch (error) {
         console.error("Geolocation error:", error);
@@ -38,8 +41,6 @@ const FireBanChecker = () => {
   }, [useGeolocation]);
 
   const fetchDataWithCoordinates = async (latitude, longitude) => {
-    setButtonText("Lugn och ro...");
-    setButtonClass("Laddar");
     setError(null);
     setFireHazard(null);
     setFireBan(null);
@@ -49,16 +50,11 @@ const FireBanChecker = () => {
       const fireProhibitionData = await fetchFireProhibitionData(latitude, longitude);
       setFireHazard(fireBanData);
       setFireBan(fireProhibitionData);
-      setButtonText("Hämta Info");
-      setButtonClass("");
       setDetailsVisible(true);
-      setShowMoreInfo(false);
       setDataFetched(true);
       setShowMunicipalityForm(false);
     } catch (error) {
       setError('Failed to fetch data');
-      setButtonText("Hämta Info");
-      setButtonClass("");
     }
   };
 
@@ -66,6 +62,8 @@ const FireBanChecker = () => {
     setMunicipality(selectedMunicipality);
     try {
       const { latitude, longitude } = await getCoordinates(selectedMunicipality);
+      setLatitude(latitude);
+      setLongitude(longitude);
       fetchDataWithCoordinates(latitude, longitude);
     } catch (error) {
       setError('Failed to fetch data for the selected municipality');
@@ -76,6 +74,8 @@ const FireBanChecker = () => {
     try {
       const { coords } = await getCurrentPosition();
       const { latitude, longitude } = coords;
+      setLatitude(latitude);
+      setLongitude(longitude);
       fetchDataWithCoordinates(latitude, longitude);
     } catch (error) {
       console.error("Geolocation error:", error);
@@ -142,6 +142,11 @@ const FireBanChecker = () => {
             </form>
           )}
         </div>
+        {latitude && longitude && (
+          <div className="weekly-forecast-container">
+            <WeeklyForecast latitude={latitude} longitude={longitude} />
+          </div>
+        )}
         {fireHazard && (
           <div className="fire-hazard-scale-container">
             <FireHazardScale level={fireHazard.riskIndex} />
@@ -151,6 +156,7 @@ const FireBanChecker = () => {
                 Giltig: <span dangerouslySetInnerHTML={{ __html: fireHazard.periodEndDate ? formatFireHazardValidityPeriod(fireHazard.periodEndDate) : "Information not available." }} /> <span className="source">Källa: MSB</span>
               </div>
             </div>
+            <FireHazardInfoBox fireHazard={fireHazard} /> {/* Use the new component */}
           </div>
         )}
         {!collapseContent && (
@@ -167,26 +173,6 @@ const FireBanChecker = () => {
                 <div className="last-updated">
                   Uppdaterad: <span dangerouslySetInnerHTML={{ __html: fireBan.revisionDate ? formatFireBanUpdateDate(fireBan.revisionDate) : "Information not available." }} /> <span className="source">Källa: MSB</span>
                 </div>
-              </div>
-            )}
-            {detailsVisible && fireHazard && (
-              <div className="result-box detailed-info-box">
-                <div className="collapsible-header" onClick={() => setShowMoreInfo(!showMoreInfo)}>
-                  <i className={`fas fa-chevron-${showMoreInfo ? 'up' : 'down'}`}></i>
-                  <strong>Mer Information</strong>
-                </div>
-                {showMoreInfo && (
-                  <div className="collapsible-content show">
-                    <ul>
-                      <li><strong>Aktuellt Läge:</strong> {fireHazard.fwiMessage || "Information not available."}</li>
-                      <li><strong>Brandsäkerhet:</strong> {fireHazard.combustibleMessage || "Information not available."}</li>
-                      <li><strong>I Skog & Mark:</strong> {fireHazard.woodMessage || "Information not available."}</li>
-                      <li><strong> Brandrisk Gräs: </strong> 
-{fireHazard.grassMessage ||         "Information not available."}</li>
-                      <li><strong>Generellt:</strong> {fireHazard.riskMessage || "Information not available."}</li>
-                    </ul>
-                  </div>
-                )}
               </div>
             )}
           </>

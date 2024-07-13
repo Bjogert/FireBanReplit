@@ -1,0 +1,220 @@
+.wf-collapsible-box {
+  margin-top: -30px; 
+  margin-left: 0; 
+  width: auto; 
+  background-color: #f4f7f0;
+  border: 1px solid #595959;
+  border-radius: 6px;
+  z-index: 6;
+  overflow: hidden;
+  position: absolute; 
+  top: 101px; 
+  left: 180px; 
+  transition: width 0.5s ease; 
+  padding: 0; /* Remove any internal padding */
+  height: auto; /* Ensure the height is based on content */
+}
+
+.wf-collapsible-header {
+  margin-left: 20px;
+  margin-right: 10px;
+  padding: 0; 
+  background-color: #f4f7f0;
+  color: black;
+  border-bottom: 0 solid #5e5e5e;
+  display: inline-flex; 
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: visible; 
+  text-overflow: ellipsis;
+  font-weight: 400; 
+  box-sizing: border-box; 
+  height: auto; 
+  line-height: 0;
+}
+
+.wf-collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: #f4f7f0;
+  border: 0 solid #798a79;
+  border-radius: 0;
+  padding: 0; /* Remove internal padding */
+}
+.wf-collapsible-header i {
+  margin-left: 0px;
+  transition: transform 0.4s;
+}
+
+.wf-collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: #f4f7f0;
+  border: 0px solid #798a79;
+  border-radius: 0px;
+}
+
+.wf-collapsible-content.show {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}
+
+.wf-collapsible-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wf-collapsible-content li {
+  padding: 0px 0px;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 0px solid #798a79; 
+  display: flex; 
+  justify-content: space-between; 
+  white-space: nowrap; 
+}
+
+.wf-collapsible-content li:last-child {
+  border-bottom: none;
+}
+
+/* Weekly Hazard Level Styles */
+.wf-grey {
+  background-color: grey;
+  border: 0.5px solid #383838;
+}
+
+.wf-blue {
+  background-color: cyan;
+  border: 0.5px solid #383838;
+}
+
+.wf-green {
+  background-color: lime;
+  border: 0.5px solid #383838;
+}
+
+.wf-yellow {
+  background-color: yellow;
+  border: 0.5px solid #383838;
+}
+
+.wf-orange {
+  background-color: orange;
+  border: 0.5px solid #383838;
+}
+
+.wf-red {
+  background-color: red;
+  border: 0.5px solid #383838;
+}
+
+.wf-darkred {
+  background-color: darkred;
+  border: 0.5px solid #383838;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.open .wf-collapsible-content {
+  max-height: 400px;
+  transition: max-height 0.3s ease-in;
+}
+
+/* Day and Date Styles */
+.wf-date-time {
+  background-color: #f2f2f2;
+  padding: 0px 0px; 
+  border-radius: 0px; 
+  display: flex; 
+  gap: 0px; 
+  width: 45%; 
+  box-sizing: border-box; 
+  text-align: left; 
+  position: relative; 
+  border: 0.5px solid #595959; 
+}
+
+.wf-date-time .day,
+.wf-date-time .date {
+  color: black; 
+  padding: 0 6px;
+  margin-right: 5px;
+}
+
+.wf-hazard-index {
+  width: 56%; 
+  box-sizing: border-box; 
+  text-align: center; 
+  padding-left: 0px; 
+  padding-right: 0px; 
+  position: relative; 
+  font-weight: 300;
+}
+
+/* Add a vertical line as a pseudo-element to wf-date-time */
+.wf-date-time::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 0;
+  bottom: 0;
+  width: 0.5px;
+  background-color: #000; 
+}
+
+.wf-forecast-item {
+  display: flex;
+  width: 100%;
+  border-left: 0px solid #798a79;
+}
+
+/* Container to align header and main content */
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 0px;
+}
+
+/* Header, main, and footer styles to match the container */
+.header, .main, .footer {
+  box-sizing: border-box;
+}
+
+/* New flex container for aligning FireHazardScale and WeeklyForecast */
+.wf-flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 0; 
+  margin-left: 0px; 
+  margin-right: 0px; 
+  padding-top: 0px; 
+}
+
+/* Weekly forecast container */
+.wf-weekly-forecast-container {
+  flex: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute; 
+  top: 100px;
+  left: 0px; 
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+}

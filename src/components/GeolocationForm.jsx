@@ -1,9 +1,8 @@
 // src/components/GeolocationForm.jsx
 import React, { useState, useEffect } from 'react';
 import { getCurrentPosition } from '../services/geolocationService';
-import { getCoordinates } from '../services/municipalityService';
 
-const GeolocationForm = ({ setButtonText, setButtonClass, setError, setFireHazard, setFireBan, setDataFetched, useGeolocation, setUseGeolocation }) => {
+const GeolocationForm = ({ setError, setFireHazard, setFireBan, setDataFetched, useGeolocation, setUseGeolocation }) => {
   const [municipality, setMunicipality] = useState("");
   const [showMunicipalityForm, setShowMunicipalityForm] = useState(false);
 
@@ -22,11 +21,9 @@ const GeolocationForm = ({ setButtonText, setButtonClass, setError, setFireHazar
     if (useGeolocation) {
       fetchData();
     }
-  }, [useGeolocation]);
+  }, [useGeolocation, setUseGeolocation]);
 
   const fetchDataWithCoordinates = async (latitude, longitude) => {
-    setButtonText("Lugn och ro...");
-    setButtonClass("Laddar");
     setError(null);
     setFireHazard(null);
     setFireBan(null);
@@ -37,13 +34,9 @@ const GeolocationForm = ({ setButtonText, setButtonClass, setError, setFireHazar
       setFireHazard(fireBanData);
       setFireBan(fireProhibitionData);
       setDataFetched(true);
-      setButtonText("Hämta Info");
-      setButtonClass("");
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Error fetching data.");
-      setButtonText("Försök igen");
-      setButtonClass("Error");
     }
   };
 

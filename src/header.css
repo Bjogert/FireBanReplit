@@ -1,14 +1,38 @@
+/* Header */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .header {
   background-color: #c3cea3;
   color: white;
-  padding: 15px;
+  padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px; 
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  z-index: 101;
+  transform: translateZ(0); /* Prevent jitter on mobile */
+}
+
+.header, .dropbtn {
+  user-select: none; /* Prevent text selection */
+  -webkit-tap-highlight-color: transparent; /* Disable highlight color on mobile */
+}
+
+.header:focus, .header:active,
+.dropbtn:focus, .dropbtn:active {
+  outline: none; /* Remove the outline on focus */
 }
 
 .header-left {
@@ -16,138 +40,150 @@
   align-items: center;
 }
 
+.logo-img {
+  max-width: 55px;
+  max-height: 55px;
+  margin-right: 15px;
+  width: auto;
+  height: auto;
+}
+
 .title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
+  top: 15px;
+  position: absolute;
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+  z-index: 102;
 }
 
 .dropbtn {
   background-color: #44656c;
   color: white;
-  font-size: 17px; /* Adjust font size */
-  padding: 0 0px; /* Adjust padding for more space around the text */
-  width: 70px; /* Set a specific width */
-  height: 20px; /* Set a specific height */
-  line-height: 15px; /* Match line-height to height for vertical centering */
+  font-size: 17px;
+  padding: 0px 30px;
   border: 1px solid #31422d;
   border-radius: 4px;
   cursor: pointer;
-  overflow: hidden; 
-  white-space: nowrap;
-  position: relative; 
+  position: absolute;
+  z-index: 103;
+  top: -9px;
+  right: -100px;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #c3cea3;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
-  width: auto;
-  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 104;
+  min-width: 50px;
   border: 1px solid #4b6e54;
   border-radius: 5px;
+  top: 13.5px;
+  right: -100px;
 }
 
 .dropdown-content a {
+  font-size: 14px;
   color: black;
-  padding: 6px 8px;
+  padding: 3px 5px;
   text-decoration: none;
   display: block;
-  font-size: 12px;
 }
 
 .dropdown-content a:hover {
   background-color: #b5ebcb;
 }
 
+.fire-hazard-info-boxb {
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 15px 0;
+  margin-top: 500px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 30px);
+  max-width: 600px;
+  text-align: left;
+  z-index: 100;
+}
+
 @media (max-width: 768px) {
   .header {
-    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    min-height: 50px;
+  }
+
+  .title {
+    font-size: 27px;
+    margin: 3px 0px;
+    padding-right: 80px;
+    margin-top: 4px;
+    position: absolute;
+    top: 0px;
+    right: calc(-100px + 100px);
   }
 
   .logo-img {
-    height: 50px; /* Adjust as needed for smaller screens */
+    position: absolute;
+    max-width: 40px;
+    max-height: 40px;
+    margin-right: 0;
+    top: 5px;
+    right: 10px;
+    z-index: 5;
+  }
+
+  .dropbtn {
+    position: absolute;
+    font-size: 15px;
+    padding: 0px 23px;
+    top: 15px;
+    right: 95px;
+    z-index: 100;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    min-width: 100px;
+    top: 36px;
+    right: 70px;
+    z-index: 101;
+    padding: 0px;
+    font-size: 12px;
+  }
+
+  .dropdown-content a {
+    padding: 2px 5px;
   }
 }
 
-.collapsible-header {
-  cursor: pointer;
-  padding: 1px 1px; /* Minimal padding to reduce inner spacing */
-  display: flex;
-  justify-content: space-between; /* Space between icon and text */
-  align-items: center;
-  background-color: rgb(255, 255, 255, 0.9); /* Adjust background color */
-  border-radius: 0px;
-  color: #545454;
-  width: 100%; /* Full width */
-  height: 15px; /* Set a specific height */
-  box-sizing: border-box;
-  margin: 0px 0; /* Minimal space around the header */
-  user-select: none; /* Prevent text selection */
-  outline: none; /* Remove focus outline */
-  -webkit-user-select: none; /* Disable text selection in Safari */
-  -moz-user-select: none; /* Disable text selection in Firefox */
-  -ms-user-select: none; /* Disable text selection in Internet Explorer */
-  -webkit-tap-highlight-color: transparent; /* Disable highlight on mobile */
-}
+@media (orientation: landscape) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-.collapsible-header {
-  cursor: pointer;
-  padding: 1px 1px; /* Minimal padding to reduce inner spacing */
-  display: flex;
-  justify-content: space-between; /* Space between icon and text */
-  align-items: center;
-  background-color: rgb(255, 255, 255, 0.9); /* Adjust background color */
-  border-radius: 0px;
-  color: #545454;
-  width: 100%; /* Full width */
-  height: 15px; /* Set a specific height */
-  box-sizing: border-box;
-  margin: 0px 0; /* Minimal space around the header */
-  user-select: none; /* Prevent text selection */
-  outline: none; /* Remove focus outline */
-  -webkit-user-select: none; /* Disable text selection in Safari */
-  -moz-user-select: none; /* Disable text selection in Firefox */
-  -ms-user-select: none; /* Disable text selection in Internet Explorer */
-  -webkit-tap-highlight-color: transparent; /* Disable highlight on mobile */
-}
+  .dropbtn {
+    top: -10px;
+    right: -100px;
+  }
 
-.collapsible-header i {
-  transition: transform 0.3s;
-  font-size: 10px; /* Icon size */
-  margin-right: 150px; /* Add margin to the right of the icon */
-}
+  .dropdown-content {
+    top: 10px;
+    right: -125px;
+  }
 
-.collapsible-content {
-  padding: 5px;
-  display: none;
-  font-size: 16px; /* Make text smaller for debugging */
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: left; /* Align text to the left */
-}
-
-.collapsible-content.show {
-  display: block;
-}
-
-ul {
-  padding-left: 10px; /* Adjust padding to indent list items */
-}
-
-li {
-  margin-left: 10px; /* Move bullet points to the left */
-  padding-left: 5px; /* Create space between bullet point and text */
-  list-style-position: outside; /* Place bullet point outside the padding */
-  display: block;
-  text-indent: -10px; /* Ensure text starts at the right position */
-  margin-bottom: 5px; /* Add space between items */
+  .title {
+    right: calc(90px + 100px);
+  }
 }
