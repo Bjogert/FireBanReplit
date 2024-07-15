@@ -5,7 +5,8 @@ import { getCoordinates } from '../services/municipalityService';
 import FireHazardScale from './FireHazardScale';
 import Autocomplete from './Autocomplete';
 import WeeklyForecast from './WeeklyForecast';
-import FireHazardInfoBox from './FireHazardInfoBox'; // Import the new component
+import FireHazardInfoBox from './FireHazardInfoBox'; 
+import MapLink from './MapLink'; // Import the MapLink component
 import '../App.css';
 
 const FireBanChecker = () => {
@@ -156,11 +157,11 @@ const FireBanChecker = () => {
                 Giltig: <span dangerouslySetInnerHTML={{ __html: fireHazard.periodEndDate ? formatFireHazardValidityPeriod(fireHazard.periodEndDate) : "Information not available." }} /> <span className="source">Källa: MSB</span>
               </div>
             </div>
-            <FireHazardInfoBox fireHazard={fireHazard} /> {/* Use the new component */}
+            <FireHazardInfoBox fireHazard={fireHazard} /> 
           </div>
         )}
         {!collapseContent && (
-          <>
+          <div className="result-map-container">
             {error && <div className="result error-message">{error}</div>}
             {fireBan && (
               <div className="result-box">
@@ -175,7 +176,8 @@ const FireBanChecker = () => {
                 </div>
               </div>
             )}
-          </>
+            {latitude && longitude && <MapLink />} {/* Conditionally render the MapLink component */}
+          </div>
         )}
         <div className="image-container">
           <img

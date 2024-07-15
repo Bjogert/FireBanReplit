@@ -1,0 +1,23 @@
+/* src/components/MapLink.css */
+
+.map-link {
+  width: 100px;
+  height: auto; /* Maintain aspect ratio */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0; /* Add some margin */
+}
+
+.swedish-map-image {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  border: 2px solid black; /* Add border */
+}
+
+@media (max-width: 768px) {
+  .map-link {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
+}
