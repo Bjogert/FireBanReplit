@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
-    "test": "jest"
+    "test": "jest --config=jest.config.cjs"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "babel-jest": "^27.0.6",
     "gh-pages": "^5.0.0",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.2.2",
@@ -39,7 +40,7 @@
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.js"
     ],
-    "testEnvironment": "jsdom",
+    "testEnvironment": "jest-environment-jsdom",
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest"
     },
