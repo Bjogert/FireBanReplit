@@ -10,7 +10,7 @@
       display: none; /* Hide the content initially */
     }
   </style>
-  <script type="module" crossorigin src="/FireBanReplit/assets/index-D6OKLZav.js"></script>
+  <script type="module" crossorigin src="/FireBanReplit/assets/index-DrousuFq.js"></script>
   
 </head>
 <body>
@@ -29,7 +29,7 @@
         Får du elda nu?
       </div>
     </div>
-    <img src="/FireBanReplit/Logo.webp" alt="Logo" class="logo-img">
+    <img src="/FireBanReplit/assets/Logo-X4C-O38U.webp" alt="Logo" class="logo-img">
   </header>
 
   <div class="main hidden-until-load">
@@ -55,10 +55,8 @@
 
     document.getElementById('change-municipality').addEventListener('click', function() {
       var scaleContainer = document.querySelector('.fire-hazard-scale-container');
-      //scaleContainer.style.marginTop = '15px';
     });
 
-    // Close the dropdown if the user clicks outside of it
     window.onclick = function(event) {
       if (!event.target.matches('.dropbtn')) {
         var dropdowns = document.getElementsByClassName('dropdown-content');
@@ -71,7 +69,6 @@
       }
     };
 
-    // Show the hidden content after the page loads
     window.addEventListener('load', function() {
       var hiddenElements = document.querySelectorAll('.hidden-until-load');
       hiddenElements.forEach(function(element) {
