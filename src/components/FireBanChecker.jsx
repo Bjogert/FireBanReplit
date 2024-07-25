@@ -185,6 +185,10 @@ const FireBanChecker = () => {
           />
         </div>
       </main>
+      <footer className="footer">
+        <p>Plats för reklam.</p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5691029239139782" crossOrigin="anonymous"></script>
+      </footer>
     </div>
   );
 };
