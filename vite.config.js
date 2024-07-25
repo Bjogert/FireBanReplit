@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export default defineConfig({
-  base: '/FireBanReplit/',  // Ensure the base path is set correctly
+  base: '/',  // Change the base path for custom domain
   plugins: [
     react(),
     cssInjectedByJsPlugin(),

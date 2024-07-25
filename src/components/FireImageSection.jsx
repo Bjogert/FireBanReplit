@@ -4,7 +4,7 @@ const FireImageSection = ({ collapseContent, setCollapseContent }) => (
   <>
     <div className="image-container">
       <img
-        src="/FireBanReplit/fire.webp"
+        src="/fire.webp"
         alt="Fire image"
         className="fire-image"
         onClick={() => setCollapseContent(!collapseContent)}
