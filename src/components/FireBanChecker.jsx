@@ -54,7 +54,8 @@ const FireBanChecker = () => {
       setDataFetched(true);
       setShowMunicipalityForm(false);
     } catch (error) {
-      setError('Failed to fetch data');
+      console.error('Error fetching fire data:', error);
+      setError(`Failed to fetch data: ${error.message || 'Unknown error'}`);
     }
   };
 
@@ -66,7 +67,8 @@ const FireBanChecker = () => {
       setLongitude(longitude);
       fetchDataWithCoordinates(latitude, longitude);
     } catch (error) {
-      setError('Failed to fetch data for the selected municipality');
+      console.error('Error getting coordinates:', error);
+      setError(`Failed to fetch data for the selected municipality: ${error.message || 'Unknown error'}`);
     }
   };
 
