@@ -1,25 +1,37 @@
 // src/services/fireBanService.js
-const proxyUrl = 'https://thingproxy-oxuk.onrender.com/fetch/';
+
+// Configuration for API access
+const MSB_API_BASE = 'https://api.msb.se/brandrisk/v2';
+const USE_PROXY = false; // Set to true if direct access fails
+const PROXY_URL = 'https://thingproxy-oxuk.onrender.com/fetch/';
+
+/**
+ * Fetches data from MSB API with optional proxy fallback
+ * @param {string} url - The target URL to fetch
+ * @returns {Promise<Response>} - Fetch response
+ */
+const fetchWithOptionalProxy = async (url) => {
+    const targetUrl = USE_PROXY ? PROXY_URL + url : url;
+    
+    return fetch(targetUrl, {
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+};
 
 export const fetchFireBanData = async (latitude, longitude) => {
-    const targetUrl = `https://api.msb.se/brandrisk/v2/CurrentRisk/sv/${latitude}/${longitude}`;
-    const url = proxyUrl + targetUrl;
-    console.log(`Fetching data from: ${url}`);
+    const targetUrl = `${MSB_API_BASE}/CurrentRisk/sv/${latitude}/${longitude}`;
+    console.log(`Fetching fire ban data for coordinates: ${latitude}, ${longitude}`);
 
     try {
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        const response = await fetchWithOptionalProxy(targetUrl);
 
-        console.log('Response status:', response.status);
         if (!response.ok) {
-            throw new Error(`Failed to fetch data, status code: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Data received:', data);
 
         if (!data || Object.keys(data).length === 0) {
             return { status: "No fire ban information available for this location." };
@@ -57,32 +69,25 @@ export const fetchFireBanData = async (latitude, longitude) => {
         };
 
     } catch (error) {
-        console.error("Error fetching fire ban data:", error.message);
-        return { status: "Failed to fetch data" };
+        console.error("Error fetching fire ban data:", error);
+        throw new Error(`Failed to fetch fire ban data: ${error.message}`);
     }
 };
 
 
 
 export const fetchFireProhibitionData = async (latitude, longitude) => {
-    const targetUrl = `https://api.msb.se/brandrisk/v2/FireProhibition/sv/${latitude}/${longitude}`;
-    const url = proxyUrl + targetUrl;
-    console.log(`Fetching data from: ${url}`);
+    const targetUrl = `${MSB_API_BASE}/FireProhibition/sv/${latitude}/${longitude}`;
+    console.log(`Fetching fire prohibition data for coordinates: ${latitude}, ${longitude}`);
 
     try {
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        const response = await fetchWithOptionalProxy(targetUrl);
 
-        console.log('Response status:', response.status);
         if (!response.ok) {
-            throw new Error(`Failed to fetch data, status code: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Data received:', data);
 
         if (!data || Object.keys(data).length === 0) {
             return { status: "No fire prohibition information available for this location." };
@@ -107,31 +112,25 @@ export const fetchFireProhibitionData = async (latitude, longitude) => {
         };
 
     } catch (error) {
-        console.error("Error fetching fire prohibition data:", error.message);
-        return { status: "Failed to fetch data" };
+        console.error("Error fetching fire prohibition data:", error);
+        throw new Error(`Failed to fetch fire prohibition data: ${error.message}`);
     }
 };
 
 
 
 export const fetchWeeklyForecastData = async (latitude, longitude) => {
-    const targetUrl = `https://api.msb.se/brandrisk/v2/RiskPartOfDayForecast/sv/${latitude}/${longitude}`;
-    const url = proxyUrl + targetUrl;
-    console.log(`Fetching data from: ${url}`);
+    const targetUrl = `${MSB_API_BASE}/RiskPartOfDayForecast/sv/${latitude}/${longitude}`;
+    console.log(`Fetching weekly forecast data for coordinates: ${latitude}, ${longitude}`);
 
     try {
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+        const response = await fetchWithOptionalProxy(targetUrl);
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch data, status code: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Weekly forecast data received:', JSON.stringify(data, null, 2));
 
         const processedData = data.reduce((acc, item) => {
             const date = new Date(item.forecast.date).toLocaleDateString('sv-SE', {
@@ -183,10 +182,10 @@ export const fetchWeeklyForecastData = async (latitude, longitude) => {
             };
         });
 
-        console.log('Processed forecast data:', JSON.stringify(organizedData, null, 2));
+        console.log('Processed forecast data:', organizedData);
         return organizedData;
     } catch (error) {
-        console.error("Error fetching weekly forecast data:", error.message);
-        throw error;
+        console.error("Error fetching weekly forecast data:", error);
+        throw new Error(`Failed to fetch weekly forecast data: ${error.message}`);
     }
 };
